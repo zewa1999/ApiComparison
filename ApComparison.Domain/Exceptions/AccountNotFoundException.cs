@@ -2,7 +2,7 @@
 
 namespace ApiComparison.Domain.Exceptions;
 
-public class AccountNotFoundException: Exception
+public class AccountNotFoundException : Exception
 {
     public AccountNotFoundException(BaseEntity baseEntity)
         : base("Account not found!")

@@ -1,12 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApiComparison.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
-namespace ApiComparison.Persistence
+namespace ApiComparison.EfCore.Persistence;
+
+public class ApiComparisonDbContext: DbContext
 {
-    internal class ApiComparisonDbContext
+	public ApiComparisonDbContext(DbContextOptions<ApiComparisonDbContext> options)
+		:base(options)
+	{
+	}
+    protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        base.OnModelCreating(builder);
     }
+
+	public DbSet<Account> Accounts { get; set; } = null!;
+	public DbSet<Account> Addresses { get; set; } = null!;
+    public DbSet<Account> Dishes { get; set; } = null!;
+    public DbSet<Account> Ingredients { get; set; } = null!;
+    public DbSet<Account> Users { get; set; } = null!;
+
 }
