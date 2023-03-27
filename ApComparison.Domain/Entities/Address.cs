@@ -1,4 +1,4 @@
-﻿namespace ApiComparison.Domain;
+﻿namespace ApiComparison.Domain.Entities;
 
 public class Address : BaseEntity
 {

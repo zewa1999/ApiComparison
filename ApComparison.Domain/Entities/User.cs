@@ -1,5 +1,6 @@
 ﻿using System.Net;
-namespace ApiComparison.Domain;
+
+namespace ApiComparison.Domain.Entities;
 
 public class User : BaseEntity
 {
