@@ -2,6 +2,6 @@
 
 namespace ApiComparison.Domain.Interfaces.Repositories;
 
-internal interface IIngredientRepository : IBaseRepository<Ingredient>
+public interface IIngredientRepository : IBaseRepository<Ingredient>
 {
 }

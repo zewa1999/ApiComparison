@@ -1,6 +1,6 @@
 ﻿namespace ApiComparison.Domain.Entities;
 
-public class Dish : BaseEntity
+public record Dish : BaseEntity
 {
     public required string Name { get; set; }
     public required string Description { get; set; }

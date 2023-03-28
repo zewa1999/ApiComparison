@@ -1,8 +1,7 @@
-﻿namespace ApiComparison.Domain.Entities;
+﻿namespace ApiComparison.Contracts.ResponseDto; 
 
-public record BaseEntity
+public record BaseResponseDto : BaseDto
 {
-    public Guid Id { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime LastUpdatedAt { get; set; }
     public DateTime DeletedAt { get; set; }

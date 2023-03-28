@@ -1,12 +1,10 @@
-﻿namespace ApiComparison.Domain.Entities;
+﻿namespace ApiComparison.Contracts.ResponseDto;
 
-public record User : BaseEntity
+public record UserResponseDto : BaseResponseDto
 {
     public required string FirstName { get; set; }
     public required string LastName { get; set; }
     public required string Bio { get; set; }
     public Guid AccountId { get; set; }
-    public Account Account { get; set; } = null!;
     public Guid AddressId { get; set; }
-    public required Address Address { get; set; }
 }

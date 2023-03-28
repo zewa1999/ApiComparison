@@ -2,6 +2,6 @@
 
 namespace ApiComparison.Domain.Interfaces.Repositories;
 
-internal interface IAddressRepository : IBaseRepository<Address>
+public interface IAddressRepository : IBaseRepository<Address>
 {
 }

@@ -2,6 +2,6 @@
 
 namespace ApiComparison.Domain.Interfaces.Repositories;
 
-internal interface IDishRepository : IBaseRepository<Dish>
+public interface IDishRepository : IBaseRepository<Dish>
 {
 }

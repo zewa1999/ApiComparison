@@ -6,7 +6,7 @@ using System.Threading;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;
 
-internal class BaseRepository<TEntity> : IBaseRepository<TEntity>
+public class BaseRepository<TEntity> : IBaseRepository<TEntity>
     where TEntity : BaseEntity
 {
     private readonly ApiComparisonDbContext DbContext;
@@ -46,13 +46,19 @@ internal class BaseRepository<TEntity> : IBaseRepository<TEntity>
         await DbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task DeleteByIdAsync(TEntity toDeleteEntity, CancellationToken cancellationToken)
     {
         var dbSet = DbContext.Set<TEntity>();
 
-        var entity = await this.GetByIdAsync(id, cancellationToken);
+        var entity = await this.GetByIdAsync(toDeleteEntity.Id, cancellationToken);
 
-        if (entity != null && DbContext.Entry(entity).State == EntityState.Detached)
+        // this needs to get the actual entity before entering the method in the service and then pass it in here, and not having the Guid as parameter but the whole object, actually
+        if(entity == null)
+        {
+            throw new NullReferenceException("The entity was not found");
+        }
+
+        if (DbContext.Entry(entity).State == EntityState.Detached)
         {
             dbSet.Attach(entity);
         }

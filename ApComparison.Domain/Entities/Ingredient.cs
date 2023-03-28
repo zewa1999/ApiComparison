@@ -1,6 +1,6 @@
 ﻿namespace ApiComparison.Domain.Entities;
 
-public class Ingredient : BaseEntity
+public record Ingredient : BaseEntity
 {
     public required string Name { get; set; }
     public required decimal Quantity { get; set; }

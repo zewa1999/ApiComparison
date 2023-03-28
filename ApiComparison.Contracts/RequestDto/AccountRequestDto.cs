@@ -1,6 +1,6 @@
-﻿namespace ApiComparison.Domain.Entities;
+﻿namespace ApiComparison.Contracts.RequestDto;
 
-public record Account : BaseEntity
+public record AccountRequestDto : BaseRequestDto
 {
     public required string Username { get; set; }
     public required string Password { get; set; }

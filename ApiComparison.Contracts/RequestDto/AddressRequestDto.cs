@@ -1,11 +1,10 @@
-﻿namespace ApiComparison.Domain.Entities;
+﻿namespace ApiComparison.Contracts.RequestDto;
 
-public record Address : BaseEntity
+public record AddressRequestDto : BaseRequestDto
 {
     public required string Street { get; set; } = null!;
     public required int StreetNumber { get; set; }
     public required string City { get; set; }
     public required string ZipCode { get; set; }
-    public Guid UserId { get; set; }
-    public required User User { get; set; }
+    public required UserRequestDto UserRequestDto { get; set; }
 }
