@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApiComparison.Contracts.RequestDto;
+using ApiComparison.Contracts.ResponseDto;
 
-namespace ApiComparison.Application.Interfaces
+namespace ApiComparison.Application.Interfaces;
+
+public interface IIngredientService : IBaseService<IngredientRequestDto, IngredientResponseDto>
 {
-    internal class IIngredientService
-    {
-    }
 }

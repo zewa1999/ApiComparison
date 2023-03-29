@@ -7,13 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.Domain", "ApC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.EfCore.Persistence", "ApiComparison.Persistence\ApiComparison.EfCore.Persistence.csproj", "{429ACED8-81BE-4B13-9476-6B203CFB7A16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiComparison.WebApi", "ApiComparison.WebApi\ApiComparison.WebApi.csproj", "{2519EF34-5E48-405E-A644-B546F8F09B40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.WebApi", "ApiComparison.WebApi\ApiComparison.WebApi.csproj", "{2519EF34-5E48-405E-A644-B546F8F09B40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiComparison.Dapper.Persistence", "ApiComparison.Dapper.Persistence\ApiComparison.Dapper.Persistence.csproj", "{36825150-04E5-4D32-B309-19CA568BA4B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.Dapper.Persistence", "ApiComparison.Dapper.Persistence\ApiComparison.Dapper.Persistence.csproj", "{36825150-04E5-4D32-B309-19CA568BA4B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiComparison.Application", "ApiComparison.Application\ApiComparison.Application.csproj", "{5205518D-CFB1-46A1-AA60-3D8D59920457}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.Application", "ApiComparison.Application\ApiComparison.Application.csproj", "{5205518D-CFB1-46A1-AA60-3D8D59920457}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiComparison.Contracts", "ApiComparison.Contracts\ApiComparison.Contracts.csproj", "{CBA64C69-1569-4F25-9159-749FF1AE3C88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.Contracts", "ApiComparison.Contracts\ApiComparison.Contracts.csproj", "{CBA64C69-1569-4F25-9159-749FF1AE3C88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiComparison.Infrastructure", "ApiComparison.Infrastructure\ApiComparison.Infrastructure.csproj", "{E26A82C6-3586-4059-9292-C4B829F69244}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{CBA64C69-1569-4F25-9159-749FF1AE3C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBA64C69-1569-4F25-9159-749FF1AE3C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBA64C69-1569-4F25-9159-749FF1AE3C88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E26A82C6-3586-4059-9292-C4B829F69244}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E26A82C6-3586-4059-9292-C4B829F69244}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E26A82C6-3586-4059-9292-C4B829F69244}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E26A82C6-3586-4059-9292-C4B829F69244}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
