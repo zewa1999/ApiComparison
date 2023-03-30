@@ -3,6 +3,8 @@ using ApiComparison.Contracts.RequestDto;
 using ApiComparison.Contracts.ResponseDto;
 using ApiComparison.Domain.Entities;
 using ApiComparison.Domain.Interfaces.Repositories;
+using ApiComparison.Mapper;
+using FluentValidation;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
@@ -12,15 +14,20 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TReq
     where TEntity : BaseEntity
 {
     protected readonly IBaseRepository<TEntity> Repository;
+    protected readonly IValidator<TRequestDto> Validator;
+    protected readonly IBaseMapper<TEntity, TRequestDto, TResponseDto> Mapper;
+
     //protected readonly Validator Validator; this needs to be added
-    public BaseService(IBaseRepository<TEntity> repository)
+    public BaseService(IBaseRepository<TEntity> repository, IValidator<TRequestDto> validator, IBaseMapper<TEntity, TRequestDto, TResponseDto> mapper)
     {
         Repository = repository;
+        Validator = validator;
+        Mapper = mapper;
     }
 
-    public TResponseDto GetByID(Guid id)
+    public async Task<TResponseDto> GetByID(Guid id, CancellationToken cancellationToken)
     {
-      // if(Validator.ValidateObject()...)  return aggregate exception of the things that are not good
+        return await Repository.GetByIdAsync(id, cancellationToken);
     }
 
     public IEnumerable<TResponseDto> GetAll()

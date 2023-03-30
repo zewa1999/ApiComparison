@@ -20,7 +20,7 @@ internal class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
 
         builder.Property(i => i.Name)
             .IsRequired()
-            .HasMaxLength(15);
+            .HasMaxLength(30);
 
         builder.HasMany(i => i.DishIngredients)
            .WithMany(i => i.DishIngredients);

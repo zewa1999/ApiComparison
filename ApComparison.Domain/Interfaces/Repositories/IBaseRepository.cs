@@ -9,5 +9,5 @@ public interface IBaseRepository<TEntity>
     Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken);
     Task InsertAsync(TEntity entity, CancellationToken cancellationToken);
     Task UpdateAsync(TEntity item, CancellationToken cancellationToken);
-    Task DeleteByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task DeleteEntity(TEntity toDeleteEntity, CancellationToken cancellationToken);
 }

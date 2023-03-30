@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiComparison.Application\ApiComparison.Application.csproj" />
-    <ProjectReference Include="..\ApiComparison.Mapper\ApiComparison.Mapper.csproj" />
+    <ProjectReference Include="..\ApComparison.Domain\ApiComparison.Domain.csproj" />
+    <ProjectReference Include="..\ApiComparison.Contracts\ApiComparison.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

@@ -23,7 +23,7 @@ public class AccountRequestDtoValidator : AbstractValidator<AccountRequestDto>
 		RuleFor(a => a.Password)
 			.MinimumLength(8)
 			.MaximumLength(40)
-			.Must(x => Regex.Match(x, "[a-zA-Z0-9&._$!@-]").Success)
+			.Matches("[a-zA-Z0-9&._$!@-]")
 			.StringMustMatchSpecialCredentialsConditions();
     }
 
