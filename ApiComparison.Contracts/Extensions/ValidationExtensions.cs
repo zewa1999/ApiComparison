@@ -1,4 +1,4 @@
-﻿using ApiComparison.Contracts.RequestDto;
+﻿using ApiComparison.Contracts.Dto.RequestDto;
 using FluentValidation;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;

@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.Contracts", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.Infrastructure", "ApiComparison.Infrastructure\ApiComparison.Infrastructure.csproj", "{E26A82C6-3586-4059-9292-C4B829F69244}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiComparison.Mapper", "ApiComparison.Mapper\ApiComparison.Mapper.csproj", "{4FEC6700-FABB-4A9D-9FD1-AA2EBCDFB9BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiComparison.Mapping", "ApiComparison.Mapper\ApiComparison.Mapping.csproj", "{4FEC6700-FABB-4A9D-9FD1-AA2EBCDFB9BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiComparison.WebApi", "ApiComparison.WebApi\ApiComparison.WebApi.csproj", "{989A1EEA-980C-48B7-9DA1-FBC5343AC95F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{4FEC6700-FABB-4A9D-9FD1-AA2EBCDFB9BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FEC6700-FABB-4A9D-9FD1-AA2EBCDFB9BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FEC6700-FABB-4A9D-9FD1-AA2EBCDFB9BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{989A1EEA-980C-48B7-9DA1-FBC5343AC95F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{989A1EEA-980C-48B7-9DA1-FBC5343AC95F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{989A1EEA-980C-48B7-9DA1-FBC5343AC95F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{989A1EEA-980C-48B7-9DA1-FBC5343AC95F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

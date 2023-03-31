@@ -1,4 +1,4 @@
-﻿namespace ApiComparison.Contracts.ResponseDto;
+﻿namespace ApiComparison.Contracts.Dto.ResponseDto;
 
 public record IngredientResponseDto : BaseResponseDto
 {

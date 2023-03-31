@@ -1,4 +1,4 @@
-﻿using ApiComparison.Contracts.RequestDto;
+﻿using ApiComparison.Contracts.Dto.RequestDto;
 using FluentValidation;
 
 namespace ApiComparison.Contracts.Validators;

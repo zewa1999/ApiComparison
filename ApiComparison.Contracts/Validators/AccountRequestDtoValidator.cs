@@ -1,7 +1,6 @@
-﻿using ApiComparison.Contracts.Extensions;
-using ApiComparison.Contracts.RequestDto;
+﻿using ApiComparison.Contracts.Dto.RequestDto;
+using ApiComparison.Contracts.Extensions;
 using FluentValidation;
-using System.Text.RegularExpressions;
 
 namespace ApiComparison.Contracts.Validators;
 

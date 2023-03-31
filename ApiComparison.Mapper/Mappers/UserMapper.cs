@@ -1,8 +1,8 @@
-﻿using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
+﻿using ApiComparison.Contracts.Dto.RequestDto;
+using ApiComparison.Contracts.Dto.ResponseDto;
 using ApiComparison.Domain.Entities;
 
-namespace ApiComparison.Mapper;
+namespace ApiComparison.Mapping.Mappers;
 
 public class UserMapper : IBaseMapper<User, UserRequestDto, UserResponseDto>
 {

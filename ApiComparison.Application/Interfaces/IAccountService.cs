@@ -1,5 +1,5 @@
-﻿using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
+﻿using ApiComparison.Contracts.Dto.RequestDto;
+using ApiComparison.Contracts.Dto.ResponseDto;
 using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Application.Interfaces;

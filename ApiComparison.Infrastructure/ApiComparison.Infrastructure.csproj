@@ -6,9 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+	</ItemGroup>
+	
   <ItemGroup>
     <ProjectReference Include="..\ApiComparison.Application\ApiComparison.Application.csproj" />
-    <ProjectReference Include="..\ApiComparison.Mapper\ApiComparison.Mapper.csproj" />
+    <ProjectReference Include="..\ApiComparison.Mapper\ApiComparison.Mapping.csproj" />
+    <ProjectReference Include="..\ApiComparison.Persistence\ApiComparison.EfCore.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

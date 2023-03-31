@@ -1,9 +1,9 @@
 ﻿using ApiComparison.Application.Interfaces;
-using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
+using ApiComparison.Contracts.Dto.RequestDto;
+using ApiComparison.Contracts.Dto.ResponseDto;
 using ApiComparison.Domain.Entities;
 using ApiComparison.Domain.Interfaces.Repositories;
-using ApiComparison.Mapper;
+using ApiComparison.Mapping.Mappers;
 using FluentValidation;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;

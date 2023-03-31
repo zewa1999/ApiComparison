@@ -1,6 +1,6 @@
-﻿namespace ApiComparison.Contracts.ResponseDto;
+﻿namespace ApiComparison.Contracts.Dto.ResponseDto;
 
-public record  AddressResponseDto : BaseResponseDto
+public record AddressResponseDto : BaseResponseDto
 {
     public required string Street { get; set; } = null!;
     public required string StreetNumber { get; set; }
