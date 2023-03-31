@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ApiComparison.Application.Interfaces;
+using ApiComparison.Contracts.RequestDto;
+using ApiComparison.Contracts.ResponseDto;
+using ApiComparison.Domain.Entities;
+using ApiComparison.Domain.Interfaces.Repositories;
+using ApiComparison.Mapper;
+using FluentValidation;
 
-namespace ApiComparison.Infrastructure.BusinessLogicServices
+namespace ApiComparison.Infrastructure.BusinessLogicServices;
+
+public class AccountService : BaseService<Account, AccountRequestDto, AccountResponseDto>, IAccountService
 {
-    internal class AccountService
+    public AccountService(IBaseRepository<Account> repository,
+                          IValidator<AccountRequestDto> validator,
+                          IBaseMapper<Account, AccountRequestDto, AccountResponseDto> mapper) : base(repository, validator, mapper)
     {
     }
 }
