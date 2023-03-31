@@ -7,13 +7,13 @@ public interface IBaseService<TRequestDto, TResponseDto>
     where TRequestDto: BaseRequestDto
     where TResponseDto : BaseResponseDto
 {
-    Task<TResponseDto> Insert(TRequestDto entity);
+    Task<TResponseDto> Insert(TRequestDto entity, CancellationToken cancellationToken);
 
-    Task Update(TRequestDto entity);
+    Task Update(TRequestDto entity, CancellationToken cancellationToken);
 
-    void DeleteById(TRequestDto entity);
+    Task DeleteById(TRequestDto entity, CancellationToken cancellationToken);
 
-    TResponseDto GetByID(Guid id);
+    Task<TResponseDto?> GetByID(Guid id, CancellationToken cancellationToken);
 
-    IEnumerable<TResponseDto> GetAll();
+    Task<IEnumerable<TResponseDto>> GetAll(CancellationToken cancellationToken);
 }

@@ -17,7 +17,6 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TReq
     protected readonly IValidator<TRequestDto> Validator;
     protected readonly IBaseMapper<TEntity, TRequestDto, TResponseDto> Mapper;
 
-    //protected readonly Validator Validator; this needs to be added
     public BaseService(IBaseRepository<TEntity> repository, IValidator<TRequestDto> validator, IBaseMapper<TEntity, TRequestDto, TResponseDto> mapper)
     {
         Repository = repository;
@@ -25,29 +24,37 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TReq
         Mapper = mapper;
     }
 
-    public async Task<TResponseDto> GetByID(Guid id, CancellationToken cancellationToken)
+    public async Task<TResponseDto?> GetByID(Guid entityId, CancellationToken cancellationToken)
     {
-        return await Repository.GetByIdAsync(id, cancellationToken);
+        var entity = await Repository.GetByIdAsync(entityId, cancellationToken);
+        return Mapper.EntityToResponse(entity!);
     }
 
-    public IEnumerable<TResponseDto> GetAll()
+    public async Task<IEnumerable<TResponseDto>> GetAll(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var entities = await Repository.GetAllAsync(cancellationToken);
+        var responses = new List<TResponseDto>();
+
+        foreach (var entity in entities)
+        {
+            responses.Add(Mapper.EntityToResponse(entity));
+        }
+
+        return responses;
     }
 
-    public Task<TResponseDto> Insert(TRequestDto entity)
+    public async Task<TResponseDto> Insert(TRequestDto requestDto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return Mapper.EntityToResponse(await Repository.InsertAsync(Mapper.RequestToEntity(requestDto), cancellationToken));
     }
 
-    public Task Update(TRequestDto entity)
+    public async Task Update(TRequestDto entityRequestDto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await Repository.UpdateAsync(Mapper.RequestToEntity(entityRequestDto), cancellationToken);
     }
 
-    public void DeleteById(TRequestDto entity)
+    public async Task DeleteById(TRequestDto entity, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        await Repository.DeleteEntity(Mapper.RequestToEntity(entity), cancellationToken);
     }
-
 }

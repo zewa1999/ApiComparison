@@ -1,8 +1,6 @@
 ﻿using ApiComparison.Domain.Entities;
 using ApiComparison.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
-using System.Threading;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;
 
@@ -28,18 +26,19 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
             .ToListAsync(cancellationToken);
     }
 
-
-    public async Task InsertAsync(TEntity entity, CancellationToken cancellationToken)
+    public async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken)
     {
         await DbContext.Set<TEntity>()
             .AddAsync(entity, cancellationToken);
 
         await DbContext.SaveChangesAsync(cancellationToken);
+
+        return entity;
     }
 
     public async Task UpdateAsync(TEntity item, CancellationToken cancellationToken)
     {
-        DbContext.Set<TEntity>().Attach(item);
+        DbContext.Set<TEntity>().Update(item);
 
         DbContext.Entry(item).State= EntityState.Modified;
 
