@@ -14,10 +14,9 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         DbContext = dbContext;
     }
 
-    public async Task<TEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<TEntity?> GetByIdAsync(object entityId, CancellationToken cancellationToken)
     {
-        return await DbContext.Set<TEntity>().AsNoTracking()
-            .FirstOrDefaultAsync(x => x.Id == id, cancellationToken)!;
+        return await DbContext.Set<TEntity>().FindAsync(entityId, cancellationToken);
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
@@ -45,24 +44,16 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         await DbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteEntity(TEntity toDeleteEntity, CancellationToken cancellationToken)
+    public async Task DeleteEntity(TEntity entityToDelete, CancellationToken cancellationToken)
     {
         var dbSet = DbContext.Set<TEntity>();
 
-        var entity = await this.GetByIdAsync(toDeleteEntity.Id, cancellationToken);
-
-        // this needs to get the actual entity before entering the method in the service and then pass it in here, and not having the Guid as parameter but the whole object, actually
-        if(entity == null)
+        if (DbContext.Entry(entityToDelete).State == EntityState.Detached)
         {
-            throw new NullReferenceException("The entity was not found");
+            dbSet.Attach(entityToDelete);
         }
 
-        if (DbContext.Entry(entity).State == EntityState.Detached)
-        {
-            dbSet.Attach(entity);
-        }
-
-        dbSet.Remove(entity!);
+        dbSet.Remove(entityToDelete!);
 
        await DbContext.SaveChangesAsync(cancellationToken);
 

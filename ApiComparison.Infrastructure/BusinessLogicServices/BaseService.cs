@@ -3,6 +3,7 @@ using ApiComparison.Contracts.Dto.RequestDto;
 using ApiComparison.Contracts.Dto.ResponseDto;
 using ApiComparison.Contracts.Extensions;
 using ApiComparison.Domain.Entities;
+using ApiComparison.Domain.Exceptions;
 using ApiComparison.Domain.Interfaces.Repositories;
 using ApiComparison.Mapping.Mappers;
 using FluentValidation;
@@ -28,6 +29,11 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TReq
     public async Task<TResponseDto?> GetByID(Guid entityId, CancellationToken cancellationToken)
     {
         var entity = await Repository.GetByIdAsync(entityId, cancellationToken);
+
+        if (entity == null)
+        {
+            throw new EntityNotFoundException(typeof(TEntity));
+        }
         return Mapper.EntityToResponse(entity!);
     }
 
@@ -56,8 +62,15 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TReq
         await Repository.UpdateAsync(Mapper.RequestToEntity(requestDto), cancellationToken);
     }
 
-    public async Task DeleteById(TRequestDto entity, CancellationToken cancellationToken)
+    public async Task DeleteById(Guid entityId, CancellationToken cancellationToken)
     {
-        await Repository.DeleteEntity(Mapper.RequestToEntity(entity), cancellationToken);
+        var entity = await Repository.GetByIdAsync(entityId, cancellationToken);
+
+        if (entity == null)
+        {
+            throw new EntityNotFoundException(typeof(TEntity));
+        }
+
+        await Repository.DeleteEntity(entity, cancellationToken);
     }
 }

@@ -8,8 +8,7 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.HasKey(u => u.Id);
-        builder.Property(u => u.Id).UseIdentityColumn();
+        builder.HasKey(u => u.UserId);
 
         builder.Property(u => u.FirstName)
                .IsRequired()
@@ -29,6 +28,6 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasOne(u => u.Address)
             .WithOne()
-            .HasForeignKey<User>(a => a.AccountId);
+            .HasForeignKey<User>(a => a.AddressId);
     }
 }

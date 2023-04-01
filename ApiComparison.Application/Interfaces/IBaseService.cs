@@ -11,7 +11,7 @@ public interface IBaseService<TRequestDto, TResponseDto>
 
     Task Update(TRequestDto entity, CancellationToken cancellationToken);
 
-    Task DeleteById(TRequestDto entity, CancellationToken cancellationToken);
+    Task DeleteById(Guid entityId, CancellationToken cancellationToken);
 
     Task<TResponseDto?> GetByID(Guid id, CancellationToken cancellationToken);
 

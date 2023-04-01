@@ -8,8 +8,7 @@ internal class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
 {
     public void Configure(EntityTypeBuilder<Ingredient> builder)
     {
-        builder.HasKey(i => i.Id);
-        builder.Property(i => i.Id).UseIdentityColumn();
+        builder.HasKey(i => i.IngredientId);
 
         builder.Property(i => i.Name)
             .IsRequired()

@@ -8,11 +8,8 @@ internal class AddressConfiguration : IEntityTypeConfiguration<Address>
 {
     public void Configure(EntityTypeBuilder<Address> builder)
     {
-        builder.HasKey(a => a.Id);
-        builder.Property(a => a.Id).UseIdentityColumn();
+        builder.HasKey(a => a.AddressId);
 
-        builder.Property(a => a.User)
-            .IsRequired();
         builder.HasOne(a => a.User)
             .WithOne(a => a.Address)
             .HasForeignKey<Address>(a => a.UserId);

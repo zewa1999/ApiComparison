@@ -8,8 +8,7 @@ internal class AccountConfiguration : IEntityTypeConfiguration<Account>
 {
     public void Configure(EntityTypeBuilder<Account> builder)
     {
-        builder.HasKey(a => a.Id);
-        builder.Property(a => a.Id).UseIdentityColumn();
+        builder.HasKey(a => a.AccountId);
 
         builder.Property(a => a.Username)
             .IsRequired()
