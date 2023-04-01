@@ -4,7 +4,7 @@ using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Mapping.Mappers;
 
-public interface IBaseMapper<TEntity, TRequestDto, TResponseDto>
+public interface IMapper<TEntity, TRequestDto, TResponseDto>
     where TEntity : BaseEntity
     where TRequestDto : BaseRequestDto
     where TResponseDto : BaseResponseDto

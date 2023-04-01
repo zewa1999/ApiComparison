@@ -10,9 +10,9 @@ namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
 public class IngredientService : BaseService<Ingredient, IngredientRequestDto, IngredientResponseDto>, IIngredientService
 {
-    public IngredientService(IBaseRepository<Ingredient> repository,
+    public IngredientService(IIngredientRepository repository,
                              IValidator<IngredientRequestDto> validator,
-                             IBaseMapper<Ingredient, IngredientRequestDto, IngredientResponseDto> mapper) : base(repository, validator, mapper)
+                             IMapper<Ingredient, IngredientRequestDto, IngredientResponseDto> mapper) : base(repository, validator, mapper)
     {
     }
 }

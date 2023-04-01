@@ -10,9 +10,9 @@ namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
 public class AccountService : BaseService<Account, AccountRequestDto, AccountResponseDto>, IAccountService
 {
-    public AccountService(IBaseRepository<Account> repository,
+    public AccountService(IAccountRepository repository,
                           IValidator<AccountRequestDto> validator,
-                          IBaseMapper<Account, AccountRequestDto, AccountResponseDto> mapper) : base(repository, validator, mapper)
+                          IMapper<Account, AccountRequestDto, AccountResponseDto> mapper) : base(repository, validator, mapper)
     {
     }
 }

@@ -10,9 +10,9 @@ namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
 public class AddressService : BaseService<Address, AddressRequestDto, AddressResponseDto>, IAddressService
 {
-    public AddressService(IBaseRepository<Address> repository,
+    public AddressService(IAddressRepository repository,
                           IValidator<AddressRequestDto> validator,
-                          IBaseMapper<Address, AddressRequestDto, AddressResponseDto> mapper) : base(repository, validator, mapper)
+                          IMapper<Address, AddressRequestDto, AddressResponseDto> mapper) : base(repository, validator, mapper)
     {
     }
 }

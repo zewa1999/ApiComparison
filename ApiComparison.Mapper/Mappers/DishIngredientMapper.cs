@@ -4,7 +4,7 @@ using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Mapping.Mappers;
 
-public class DishIngredientMapper : IBaseMapper<Dish, DishRequestDto, DishResponseDto>, IBaseMapper<Ingredient, IngredientRequestDto, IngredientResponseDto>
+public class DishIngredientMapper : IMapper<Dish, DishRequestDto, DishResponseDto>, IMapper<Ingredient, IngredientRequestDto, IngredientResponseDto>
 {
     public Ingredient RequestToEntity(IngredientRequestDto requestDto)
     {

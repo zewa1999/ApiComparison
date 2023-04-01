@@ -1,6 +1,7 @@
 ﻿using ApiComparison.Application.Interfaces;
 using ApiComparison.Contracts.Dto.RequestDto;
 using ApiComparison.Contracts.Dto.ResponseDto;
+using ApiComparison.Contracts.Extensions;
 using ApiComparison.Domain.Entities;
 using ApiComparison.Domain.Interfaces.Repositories;
 using ApiComparison.Mapping.Mappers;
@@ -15,9 +16,9 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TReq
 {
     protected readonly IBaseRepository<TEntity> Repository;
     protected readonly IValidator<TRequestDto> Validator;
-    protected readonly IBaseMapper<TEntity, TRequestDto, TResponseDto> Mapper;
+    protected readonly IMapper<TEntity, TRequestDto, TResponseDto> Mapper;
 
-    public BaseService(IBaseRepository<TEntity> repository, IValidator<TRequestDto> validator, IBaseMapper<TEntity, TRequestDto, TResponseDto> mapper)
+    public BaseService(IBaseRepository<TEntity> repository, IValidator<TRequestDto> validator, IMapper<TEntity, TRequestDto, TResponseDto> mapper)
     {
         Repository = repository;
         Validator = validator;
@@ -45,12 +46,14 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TReq
 
     public async Task<TResponseDto> Insert(TRequestDto requestDto, CancellationToken cancellationToken)
     {
+        Validator.ValidateAndThrowAggregateException(requestDto);
         return Mapper.EntityToResponse(await Repository.InsertAsync(Mapper.RequestToEntity(requestDto), cancellationToken));
     }
 
-    public async Task Update(TRequestDto entityRequestDto, CancellationToken cancellationToken)
+    public async Task Update(TRequestDto requestDto, CancellationToken cancellationToken)
     {
-        await Repository.UpdateAsync(Mapper.RequestToEntity(entityRequestDto), cancellationToken);
+        Validator.ValidateAndThrowAggregateException(requestDto);
+        await Repository.UpdateAsync(Mapper.RequestToEntity(requestDto), cancellationToken);
     }
 
     public async Task DeleteById(TRequestDto entity, CancellationToken cancellationToken)

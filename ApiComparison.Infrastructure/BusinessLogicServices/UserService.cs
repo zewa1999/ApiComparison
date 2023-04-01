@@ -10,9 +10,9 @@ namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
 public class UserService : BaseService<User, UserRequestDto, UserResponseDto>, IUserService
 {
-    public UserService(IBaseRepository<User> repository,
+    public UserService(IUserRepository repository,
                        IValidator<UserRequestDto> validator,
-                       IBaseMapper<User, UserRequestDto, UserResponseDto> mapper) : base(repository, validator, mapper)
+                       IMapper<User, UserRequestDto, UserResponseDto> mapper) : base(repository, validator, mapper)
     {
     }
 }

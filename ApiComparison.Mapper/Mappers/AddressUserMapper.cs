@@ -4,11 +4,11 @@ using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Mapping.Mappers;
 
-internal class AddressUserMapper : IBaseMapper<Address, AddressRequestDto, AddressResponseDto>, IBaseMapper<User, UserRequestDto, UserResponseDto>
+internal class AddressUserMapper : IMapper<Address, AddressRequestDto, AddressResponseDto>, IMapper<User, UserRequestDto, UserResponseDto>
 {
-    private readonly IBaseMapper<Account, AccountRequestDto, AccountResponseDto> _accountMapper;
+    private readonly IMapper<Account, AccountRequestDto, AccountResponseDto> _accountMapper;
 
-    public AddressUserMapper(IBaseMapper<Account, AccountRequestDto, AccountResponseDto> accountMapper)
+    public AddressUserMapper(IMapper<Account, AccountRequestDto, AccountResponseDto> accountMapper)
     {
         _accountMapper = accountMapper;
     }

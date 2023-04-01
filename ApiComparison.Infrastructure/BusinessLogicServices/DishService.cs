@@ -10,9 +10,9 @@ namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
 public class DishService : BaseService<Dish, DishRequestDto, DishResponseDto>, IDishService
 {
-    public DishService(IBaseRepository<Dish> repository,
+    public DishService(IDishRepository repository,
                        IValidator<DishRequestDto> validator,
-                       IBaseMapper<Dish, DishRequestDto, DishResponseDto> mapper) : base(repository, validator, mapper)
+                       IMapper<Dish, DishRequestDto, DishResponseDto> mapper) : base(repository, validator, mapper)
     {
     }
 }

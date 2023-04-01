@@ -4,7 +4,7 @@ using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Mapping.Mappers;
 
-public class AccountMapper : IBaseMapper<Account, AccountRequestDto, AccountResponseDto>
+public class AccountMapper : IMapper<Account, AccountRequestDto, AccountResponseDto>
 {
     public Account RequestToEntity(AccountRequestDto requestDto)
     {
