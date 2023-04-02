@@ -11,7 +11,7 @@ internal class AddressConfiguration : IEntityTypeConfiguration<Address>
         builder.HasKey(a => a.AddressId);
 
         builder.HasOne(a => a.User)
-            .WithOne(a => a.Address)
+            .WithOne()
             .HasForeignKey<Address>(a => a.UserId);
 
         builder.Property(a => a.Street)
