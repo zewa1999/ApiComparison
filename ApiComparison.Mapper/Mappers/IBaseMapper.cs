@@ -1,5 +1,5 @@
-﻿using ApiComparison.Contracts.Dto.RequestDto;
-using ApiComparison.Contracts.Dto.ResponseDto;
+﻿using ApiComparison.Contracts.RequestDto;
+using ApiComparison.Contracts.ResponseDto;
 using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Mapping.Mappers;
@@ -10,5 +10,6 @@ public interface IMapper<TEntity, TRequestDto, TResponseDto>
     where TResponseDto : BaseResponseDto
 {
     TEntity RequestToEntity(TRequestDto requestDto);
+
     TResponseDto EntityToResponse(TEntity requestDto);
 }

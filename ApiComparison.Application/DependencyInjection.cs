@@ -1,5 +1,4 @@
-﻿using ApiComparison.Application.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace ApiComparison.Application;
 

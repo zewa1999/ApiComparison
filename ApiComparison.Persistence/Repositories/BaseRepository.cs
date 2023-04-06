@@ -35,11 +35,16 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         return entity;
     }
 
-    public async Task UpdateAsync(TEntity item, CancellationToken cancellationToken)
+    // remove the dependency to DateTime.UtcNow(create interface for mocking)
+    public async Task UpdateAsync(Guid entityId, TEntity incoming, CancellationToken cancellationToken)
     {
-        DbContext.Set<TEntity>().Update(item);
+        if (await DbContext.Set<TEntity>().FindAsync(entityId, cancellationToken) is TEntity found)
+        {
+            found.LastUpdatedAt = DateTime.UtcNow;
+            DbContext.Entry(found).CurrentValues.SetValues(incoming);
+        }
 
-        DbContext.Entry(item).State= EntityState.Modified;
+        DbContext.Entry(incoming).State = EntityState.Modified;
 
         await DbContext.SaveChangesAsync(cancellationToken);
     }
@@ -55,7 +60,6 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
 
         dbSet.Remove(entityToDelete!);
 
-       await DbContext.SaveChangesAsync(cancellationToken);
-
+        await DbContext.SaveChangesAsync(cancellationToken);
     }
 }

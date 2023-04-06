@@ -1,8 +1,8 @@
 ﻿using ApiComparison.Application.Interfaces;
-using ApiComparison.Contracts;
 using ApiComparison.EfCore.Persistence;
 using ApiComparison.Infrastructure.BusinessLogicServices;
 using ApiComparison.Mapping;
+using ApiComparison.Validation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +10,6 @@ namespace ApiComparison.Infrastructure;
 
 public static class DependencyInjection
 {
-
     public static IServiceCollection AddInfrastructureLayer(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
         serviceCollection.AddValidationLayer();

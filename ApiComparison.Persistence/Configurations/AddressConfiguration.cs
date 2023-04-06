@@ -23,6 +23,5 @@ internal class AddressConfiguration : IEntityTypeConfiguration<Address>
 
         builder.Property(a => a.StreetNumber)
             .IsRequired();
-
     }
 }

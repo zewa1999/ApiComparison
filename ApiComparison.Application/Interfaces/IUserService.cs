@@ -1,8 +1,7 @@
-﻿using ApiComparison.Contracts.Dto.RequestDto;
-using ApiComparison.Contracts.Dto.ResponseDto;
+﻿using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Application.Interfaces;
 
-public interface IUserService : IBaseService<UserRequestDto, UserResponseDto>
+public interface IUserService : IBaseService<User>
 {
 }

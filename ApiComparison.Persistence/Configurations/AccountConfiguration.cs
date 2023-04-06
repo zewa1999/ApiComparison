@@ -21,6 +21,5 @@ internal class AccountConfiguration : IEntityTypeConfiguration<Account>
         builder.Property(a => a.Email)
             .IsRequired()
             .HasMaxLength(50);
-            
     }
 }

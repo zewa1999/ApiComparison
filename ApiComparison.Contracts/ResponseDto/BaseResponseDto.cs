@@ -1,8 +1,6 @@
-﻿using ApiComparison.Contracts.Dto;
+﻿namespace ApiComparison.Contracts.ResponseDto;
 
-namespace ApiComparison.Contracts.Dto.ResponseDto;
-
-public record BaseResponseDto : BaseDto
+public record BaseResponseDto
 {
     public DateTime CreatedAt { get; set; }
     public DateTime LastUpdatedAt { get; set; }

@@ -1,16 +1,12 @@
-﻿using ApiComparison.Contracts.Dto.RequestDto;
+﻿using ApiComparison.Domain.Entities;
 using FluentValidation;
 
 namespace ApiComparison.Contracts.Validators;
 
-public class DishRequestDtoValidator : AbstractValidator<DishRequestDto>
+public class DishValidator : AbstractValidator<Dish>
 {
-    public DishRequestDtoValidator()
+    public DishValidator()
     {
-        RuleFor(x => x.Id)
-            .NotEmpty()
-            .NotNull();
-
         RuleFor(x => x.Description)
             .MaximumLength(120)
             .NotNull()
@@ -21,9 +17,9 @@ public class DishRequestDtoValidator : AbstractValidator<DishRequestDto>
             .NotNull()
             .NotEmpty();
 
-        RuleForEach(x => x.DishIngredientsRequestDto)
+        RuleForEach(x => x.DishIngredients)
             .NotNull()
             .NotEmpty()
-            .SetValidator(new IngredientRequestDtoValidator());
+            .SetValidator(new IngredientValidator());
     }
 }

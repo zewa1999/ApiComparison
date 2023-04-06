@@ -2,7 +2,6 @@
 
 namespace ApiComparison.Domain.Interfaces.Repositories;
 
-public interface IAccountRepository: IBaseRepository<Account>
+public interface IAccountRepository : IBaseRepository<Account>
 {
-
 }

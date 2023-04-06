@@ -1,8 +1,7 @@
-﻿using ApiComparison.Contracts.Dto.RequestDto;
-using ApiComparison.Contracts.Dto.ResponseDto;
+﻿using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Application.Interfaces;
 
-public interface IDishService : IBaseService<DishRequestDto, DishResponseDto>
+public interface IDishService : IBaseService<Dish>
 {
 }

@@ -15,9 +15,9 @@ public class EntityNotFoundException : Exception
         {
             nameof(Account) => "Account",
             nameof(Address) => "Address",
-            nameof(Ingredient) =>  "Ingredient",
-            nameof(User) =>  "User",
-            _ =>  "Entity"
+            nameof(Ingredient) => "Ingredient",
+            nameof(User) => "User",
+            _ => "Entity"
         };
     }
 }

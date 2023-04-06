@@ -1,10 +1,9 @@
-﻿using ApiComparison.Contracts.Dto.RequestDto;
+﻿using ApiComparison.Domain.Entities;
 using FluentValidation;
-using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using ValidationException = FluentValidation.ValidationException;
 
-namespace ApiComparison.Contracts.Extensions;
+namespace ApiComparison.Validation.Extensions;
 
 public static class ValidationExtensions
 {
@@ -18,7 +17,7 @@ public static class ValidationExtensions
     }
 
     public static void ValidateAndThrowAggregateException<T>(this IValidator<T> validator, T instance)
-        where T: BaseRequestDto
+        where T : BaseEntity
     {
         var res = validator.Validate(instance);
         var exceptions = new List<ArgumentException>();
@@ -26,13 +25,11 @@ public static class ValidationExtensions
         if (!res.IsValid)
         {
             var ex = new ValidationException(res.Errors);
-            foreach ( var error in ex.Errors )
+            foreach (var error in ex.Errors)
             {
                 exceptions.Add(new ArgumentException(error.ErrorMessage));
             }
             throw new AggregateException(exceptions);
         }
-
     }
-
 }

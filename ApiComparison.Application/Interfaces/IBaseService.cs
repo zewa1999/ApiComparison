@@ -1,19 +1,17 @@
-﻿using ApiComparison.Contracts.Dto.RequestDto;
-using ApiComparison.Contracts.Dto.ResponseDto;
+﻿using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Application.Interfaces;
 
-public interface IBaseService<TRequestDto, TResponseDto>
-    where TRequestDto: BaseRequestDto
-    where TResponseDto : BaseResponseDto
+public interface IBaseService<TEntity>
+    where TEntity : BaseEntity
 {
-    Task<TResponseDto> Insert(TRequestDto entity, CancellationToken cancellationToken);
+    Task<TEntity> Insert(TEntity entity, CancellationToken cancellationToken);
 
-    Task Update(TRequestDto entity, CancellationToken cancellationToken);
+    Task Update(Guid entityId, TEntity entity, CancellationToken cancellationToken);
 
     Task DeleteById(Guid entityId, CancellationToken cancellationToken);
 
-    Task<TResponseDto?> GetByID(Guid id, CancellationToken cancellationToken);
+    Task<TEntity?> GetByID(Guid? id, CancellationToken cancellationToken);
 
-    Task<IEnumerable<TResponseDto>> GetAll(CancellationToken cancellationToken);
+    Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken);
 }

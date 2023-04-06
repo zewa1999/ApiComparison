@@ -1,9 +1,8 @@
 ﻿using ApiComparison.Application.Interfaces;
-using ApiComparison.Contracts.Dto.RequestDto;
-using ApiComparison.Contracts.Dto.ResponseDto;
+using ApiComparison.Contracts.RequestDto;
+using ApiComparison.Contracts.ResponseDto;
 using ApiComparison.Domain.Entities;
 using ApiComparison.Domain.Interfaces.Repositories;
-using ApiComparison.Mapping.Mappers;
 using FluentValidation;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;
@@ -11,8 +10,7 @@ namespace ApiComparison.Infrastructure.BusinessLogicServices;
 public class UserService : BaseService<User, UserRequestDto, UserResponseDto>, IUserService
 {
     public UserService(IUserRepository repository,
-                       IValidator<UserRequestDto> validator,
-                       IMapper<User, UserRequestDto, UserResponseDto> mapper) : base(repository, validator, mapper)
+                       IValidator<User> validator) : base(repository, validator)
     {
     }
 }
