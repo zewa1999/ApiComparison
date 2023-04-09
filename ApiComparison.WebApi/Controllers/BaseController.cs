@@ -13,12 +13,13 @@ namespace ApiComparison.WebApi.Controllers;
 // Testat controllere
 // Grpc Services
 // GraphQl Services
+// Pagination
+// Authentication and Authorizationr + API Key authentication.;
 // Caching
 // Docker
 // Replica Set for DBs(Idk if caching also, but we'll see
 // Kubernetes
 // Frontend
-// Id in base entity
 [ApiController]
 [Route("[controller]")]
 [TypeFilter(typeof(AggregateExceptionFilterAttribute))]
@@ -43,10 +44,13 @@ public abstract class BaseController<TService, TEntity, TRequestDto, TResponseDt
     {
         if (id is not null)
         {
-            return Ok(await Service.GetByID(id, cancellationToken));
+            return Ok(Mapper.EntityToResponse(await Service.GetByID(id, cancellationToken)));
         }
 
-        return Ok(await Service.GetAll(cancellationToken));
+        var entities = await Service.GetAll(cancellationToken);
+        var entityDtos = entities.Select(Mapper.EntityToResponse).ToList();
+
+        return Ok(entityDtos);
     }
 
     [HttpPost]
@@ -54,8 +58,8 @@ public abstract class BaseController<TService, TEntity, TRequestDto, TResponseDt
     {
         var entity = await Service.Insert(Mapper.RequestToEntity(requestDto), cancellationToken);
 
-        // this needs to change, I don't like that I return string.Empty instead of the actual location header
-        return Created(string.Empty, Mapper.EntityToResponse(entity));
+        var location = Url.Action(nameof(GetById), new { id = entity.Id }) ?? $"/{entity.Id}";
+        return Created(location, Mapper.EntityToResponse(entity));
     }
 
     [HttpPut("{id}")]

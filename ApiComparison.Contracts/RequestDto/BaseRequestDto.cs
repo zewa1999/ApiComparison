@@ -1,5 +1,5 @@
 ﻿namespace ApiComparison.Contracts.RequestDto;
 
-public record BaseRequestDto
+public abstract record BaseRequestDto
 {
 }

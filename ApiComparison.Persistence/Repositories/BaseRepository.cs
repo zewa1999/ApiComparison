@@ -14,9 +14,11 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         DbContext = dbContext;
     }
 
-    public async Task<TEntity?> GetByIdAsync(object entityId, CancellationToken cancellationToken)
+    public async Task<TEntity?> GetByIdAsync(Guid? entityId, CancellationToken cancellationToken)
     {
-        return await DbContext.Set<TEntity>().FindAsync(entityId, cancellationToken);
+        return await DbContext.Set<TEntity>()
+            .AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Id == entityId, cancellationToken);
     }
 
     public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
@@ -36,15 +38,13 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
     }
 
     // remove the dependency to DateTime.UtcNow(create interface for mocking)
-    public async Task UpdateAsync(Guid entityId, TEntity incoming, CancellationToken cancellationToken)
+    public async Task UpdateAsync(TEntity incoming, CancellationToken cancellationToken)
     {
-        if (await DbContext.Set<TEntity>().FindAsync(entityId, cancellationToken) is TEntity found)
+        if (await DbContext.Set<TEntity>().FindAsync(incoming.Id, cancellationToken) is TEntity found)
         {
             found.LastUpdatedAt = DateTime.UtcNow;
             DbContext.Entry(found).CurrentValues.SetValues(incoming);
         }
-
-        DbContext.Entry(incoming).State = EntityState.Modified;
 
         await DbContext.SaveChangesAsync(cancellationToken);
     }

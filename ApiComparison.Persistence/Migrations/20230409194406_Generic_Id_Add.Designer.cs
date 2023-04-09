@@ -3,6 +3,7 @@ using System;
 using ApiComparison.EfCore.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ApiComparison.EfCore.Persistence.Migrations
 {
     [DbContext(typeof(ApiComparisonDbContext))]
-    partial class ApiComparisonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230409194406_Generic_Id_Add")]
+    partial class Generic_Id_Add
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -23,7 +23,7 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TEnt
         Validator = validator;
     }
 
-    public async Task<TEntity?> GetByID(Guid? entityId, CancellationToken cancellationToken)
+    public async Task<TEntity> GetByID(Guid? entityId, CancellationToken cancellationToken)
     {
         var entity = await Repository.GetByIdAsync(entityId!, cancellationToken);
 
@@ -57,7 +57,8 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TEnt
             throw new EntityNotFoundException(typeof(TEntity));
         }
 
-        await Repository.UpdateAsync(entityId, entity, cancellationToken);
+        entity.Id = dbEntity.Id;
+        await Repository.UpdateAsync(entity, cancellationToken);
     }
 
     public async Task DeleteById(Guid entityId, CancellationToken cancellationToken)

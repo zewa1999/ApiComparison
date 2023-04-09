@@ -8,7 +8,7 @@ internal class AddressConfiguration : IEntityTypeConfiguration<Address>
 {
     public void Configure(EntityTypeBuilder<Address> builder)
     {
-        builder.HasKey(a => a.AddressId);
+        builder.HasKey(a => a.Id);
 
         builder.HasOne(a => a.User)
             .WithOne()

@@ -28,6 +28,7 @@ internal class AddressUserMapper : IMapper<Address, AddressRequestDto, AddressRe
     {
         return new AddressResponseDto
         {
+            Id = address.Id,
             Street = address.Street,
             StreetNumber = address.StreetNumber,
             City = address.City,
@@ -35,15 +36,16 @@ internal class AddressUserMapper : IMapper<Address, AddressRequestDto, AddressRe
         };
     }
 
-    public UserResponseDto EntityToResponse(User requestDto)
+    public UserResponseDto EntityToResponse(User user)
     {
         return new UserResponseDto
         {
-            FirstName = requestDto.FirstName,
-            LastName = requestDto.LastName,
-            Bio = requestDto.Bio,
-            AccountResponseDto = _accountMapper.EntityToResponse(requestDto.Account),
-            AddressResponseDto = EntityToResponse(requestDto.Address)
+            Id = user.Id,
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Bio = user.Bio,
+            AccountResponseDto = _accountMapper.EntityToResponse(user.Account),
+            AddressResponseDto = EntityToResponse(user.Address)
         };
     }
 

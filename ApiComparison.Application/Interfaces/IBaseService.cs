@@ -11,7 +11,7 @@ public interface IBaseService<TEntity>
 
     Task DeleteById(Guid entityId, CancellationToken cancellationToken);
 
-    Task<TEntity?> GetByID(Guid? id, CancellationToken cancellationToken);
+    Task<TEntity> GetByID(Guid? id, CancellationToken cancellationToken);
 
     Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken);
 }

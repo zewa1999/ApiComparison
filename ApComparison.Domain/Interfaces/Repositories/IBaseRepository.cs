@@ -5,13 +5,13 @@ namespace ApiComparison.Domain.Interfaces.Repositories;
 public interface IBaseRepository<TEntity>
     where TEntity : BaseEntity
 {
-    Task<TEntity?> GetByIdAsync(object id, CancellationToken cancellationToken);
+    Task<TEntity?> GetByIdAsync(Guid? id, CancellationToken cancellationToken);
 
     Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken);
 
     Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken);
 
-    Task UpdateAsync(Guid entityId, TEntity incoming, CancellationToken cancellationToken);
+    Task UpdateAsync(TEntity incoming, CancellationToken cancellationToken);
 
     Task DeleteEntity(TEntity entityToDelete, CancellationToken cancellationToken);
 }

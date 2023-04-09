@@ -33,6 +33,7 @@ public class DishIngredientMapper : IMapper<Dish, DishRequestDto, DishResponseDt
 
         return new IngredientResponseDto
         {
+            Id = entity.Id,
             Name = entity.Name,
             Quantity = entity.Quantity,
             UnitOfMeasure = entity.UnitOfMeasure,
@@ -67,6 +68,7 @@ public class DishIngredientMapper : IMapper<Dish, DishRequestDto, DishResponseDt
 
         return new DishResponseDto
         {
+            Id = dish.Id,
             Name = dish.Name,
             Description = dish.Description,
             PhotoUrl = dish.PhotoUrl,

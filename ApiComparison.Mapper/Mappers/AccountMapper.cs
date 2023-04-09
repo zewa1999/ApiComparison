@@ -20,6 +20,7 @@ public class AccountMapper : IMapper<Account, AccountRequestDto, AccountResponse
     {
         return new AccountResponseDto
         {
+            Id = account.Id,
             Username = account.Username,
             Password = account.Password,
             Email = account.Email
