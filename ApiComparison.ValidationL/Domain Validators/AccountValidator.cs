@@ -1,4 +1,6 @@
-﻿using ApiComparison.Validation.Extensions;
+﻿using ApiComparison.Domain.Entities;
+using ApiComparison.Validation.Extensions;
+using FluentValidation;
 
 namespace ApiComparison.Contracts.Validators;
 

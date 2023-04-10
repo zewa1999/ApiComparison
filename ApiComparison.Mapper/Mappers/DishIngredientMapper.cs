@@ -9,10 +9,10 @@ public class DishIngredientMapper : IMapper<Dish, DishRequestDto, DishResponseDt
     public Ingredient RequestToEntity(IngredientRequestDto requestDto)
     {
         var dishIngredientsEntities = new List<Dish>();
-        foreach (var dishRequestDto in requestDto.DishIngredientsRequestDto)
-        {
-            dishIngredientsEntities.Add(RequestToEntity(dishRequestDto));
-        }
+        //foreach (var dishRequestDto in dishRequestDtos)
+        //{
+        //    dishIngredientsEntities.Add(RequestToEntity(dishRequestDto, null));
+        //}
 
         return new Ingredient
         {
@@ -44,10 +44,11 @@ public class DishIngredientMapper : IMapper<Dish, DishRequestDto, DishResponseDt
     public Dish RequestToEntity(DishRequestDto requestDto)
     {
         var dishIngredientsEntities = new List<Ingredient>();
-        foreach (var ingredientRequestDto in requestDto.DishIngredientsRequestDto)
-        {
-            dishIngredientsEntities.Add(RequestToEntity(ingredientRequestDto));
-        }
+        // asta trebuie refacut
+        //foreach (var ingredientRequestDto in requestDtos)
+        //{
+        //    dishIngredientsEntities.Add(RequestToEntity(ingredientRequestDto, null));
+        //}
 
         return new Dish
         {

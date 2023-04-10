@@ -56,8 +56,8 @@ internal class AddressUserMapper : IMapper<Address, AddressRequestDto, AddressRe
             FirstName = requestDto.FirstName,
             LastName = requestDto.LastName,
             Bio = requestDto.Bio,
-            Account = _accountMapper.RequestToEntity(requestDto.AccountRequestDto),
-            Address = RequestToEntity(requestDto.AddressRequestDto)
+            Account = null,
+            Address = null
         };
     }
 }

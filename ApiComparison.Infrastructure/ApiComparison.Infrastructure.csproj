@@ -7,16 +7,16 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FluentValidation" Version="11.5.1" />
+		<PackageReference Include="FluentValidation" Version="11.5.2" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
 	</ItemGroup>
 	
   <ItemGroup>
     <ProjectReference Include="..\ApiComparison.Application\ApiComparison.Application.csproj" />
-    <ProjectReference Include="..\ApiComparison.Contracts.Validation\ApiComparison.Validation.csproj" />
     <ProjectReference Include="..\ApiComparison.Mapper\ApiComparison.Mapping.csproj" />
     <ProjectReference Include="..\ApiComparison.Persistence\ApiComparison.EfCore.Persistence.csproj" />
+    <ProjectReference Include="..\ApiComparison.ValidationL\ApiComparison.Validation.csproj" />
   </ItemGroup>
 
 </Project>
