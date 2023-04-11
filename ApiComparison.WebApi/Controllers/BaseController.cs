@@ -2,7 +2,7 @@
 using ApiComparison.Contracts.RequestDto;
 using ApiComparison.Contracts.ResponseDto;
 using ApiComparison.Domain.Entities;
-using ApiComparison.Mapping.Mappers;
+using ApiComparison.Mapping.Base;
 using ApiComparison.WebApi.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;

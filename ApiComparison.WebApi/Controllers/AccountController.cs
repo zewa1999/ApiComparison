@@ -2,7 +2,7 @@
 using ApiComparison.Contracts.RequestDto;
 using ApiComparison.Contracts.ResponseDto;
 using ApiComparison.Domain.Entities;
-using ApiComparison.Mapping.Mappers;
+using ApiComparison.Mapping.Base;
 
 namespace ApiComparison.WebApi.Controllers;
 

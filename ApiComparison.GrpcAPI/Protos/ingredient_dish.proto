@@ -1,14 +1,18 @@
 ﻿syntax = "proto3";
 
+import "Protos/account.proto";
+import "google/protobuf/empty.proto";
+
 option csharp_namespace = "ApiComparison.GrpcAPI";
 
 package apicomparison;
 
 service Ingredient {
-  rpc GetIngredient (IngredientRequestDto) returns (IngredientResponseDto);
+  rpc GetIngredient (Id) returns (IngredientResponseDto);
   rpc GetIngredients (IngredientRequestDto) returns (IngredientListResponseDto);
   rpc PostIngredient (IngredientRequestDto) returns (IngredientResponseDto);
-  rpc PutIngredient (IngredientRequestDto) returns (IngredientResponseDto);
+  rpc PutIngredient (IngredientPutRequestDto) returns (google.protobuf.Empty);
+  rpc DeleteIngredient (Id) returns (google.protobuf.Empty);
 }
 
 message IngredientRequestDto {
@@ -17,6 +21,15 @@ message IngredientRequestDto {
   string unit_of_measure = 3;
   string userId = 4;
   repeated string dish_ids = 5;
+}
+
+message IngredientPutRequestDto {
+  Id id = 1;
+  string name = 2;
+  string quantity = 3;
+  string unit_of_measure = 4;
+  string userId = 5;
+  repeated string dish_ids = 6;
 }
 
 message IngredientResponseDto {
@@ -31,12 +44,15 @@ message IngredientListResponseDto {
 	repeated IngredientResponseDto items = 1;
 }
 
+
 service Dish {
-  rpc GetDish (DishRequestDto) returns (DishResponseDto);
+  rpc GetDish (Id) returns (DishResponseDto);
   rpc GetDishes (DishRequestDto) returns (DishListResponseDto);
   rpc PostDish (DishRequestDto) returns (DishResponseDto);
-  rpc PutDish (DishRequestDto) returns (DishResponseDto);
+  rpc PutDish (DishPutRequestDto) returns (google.protobuf.Empty);
+  rpc DeleteDish (Id) returns (google.protobuf.Empty);
 }
+
 
 message DishRequestDto {
   string name = 1;
@@ -44,6 +60,15 @@ message DishRequestDto {
   string photo_url = 3;
   string userId = 4;
   repeated string ingredient_ids = 5;
+}
+
+message DishPutRequestDto {
+  Id id = 1;
+  string name = 2;
+  string description = 3;
+  string photo_url = 4;
+  string userId = 5;
+  repeated string ingredient_ids = 6;
 }
 
 message DishResponseDto {

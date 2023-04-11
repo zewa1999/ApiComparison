@@ -17,7 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\ApiComparison.Application\ApiComparison.Application.csproj" />
+    <ProjectReference Include="..\ApiComparison.Infrastructure\ApiComparison.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
