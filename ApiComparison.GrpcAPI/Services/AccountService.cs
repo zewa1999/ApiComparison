@@ -19,7 +19,7 @@ public class AccountService : Account.AccountBase
         ApiComparison.Domain.Entities.Account account = null!;
         if (!string.IsNullOrEmpty(request.Id_))
         {
-            var guid = Guid.TryParse(request.Id_, out var accountId);
+            Guid.TryParse(request.Id_, out var accountId);
             account = await _accountService.GetByID(accountId, context.CancellationToken);
         }
 
@@ -74,7 +74,7 @@ public class AccountService : Account.AccountBase
     {
         if (!string.IsNullOrEmpty(request.Id.Id_))
         {
-            var guid = Guid.TryParse(request.Id.Id_, out var accountId);
+            Guid.TryParse(request.Id.Id_, out var accountId);
             await _accountService.Update(accountId, new Domain.Entities.Account
             {
                 Email = request.Email,
@@ -90,7 +90,7 @@ public class AccountService : Account.AccountBase
     {
         if (!string.IsNullOrEmpty(request.Id_))
         {
-            var guid = Guid.TryParse(request.Id_, out var accountId);
+            Guid.TryParse(request.Id_, out var accountId);
             await _accountService.DeleteById(accountId, context.CancellationToken);
         }
 

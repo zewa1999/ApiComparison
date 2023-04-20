@@ -8,5 +8,5 @@ public record User : BaseEntity
     public Guid AccountId { get; set; }
     public Account Account { get; set; } = null!;
     public Guid AddressId { get; set; }
-    public required Address Address { get; set; }
+    public Address Address { get; set; } = null!;
 }

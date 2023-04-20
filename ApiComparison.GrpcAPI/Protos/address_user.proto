@@ -10,9 +10,9 @@ package apicomparison;
 
 service Address {
   rpc GetAddress (Id) returns (AddressResponseDto);
-  rpc GetAccounts (AddressRequestDto) returns (AddressListResponseDto);
-  rpc PostAccount (AddressRequestDto) returns (AddressResponseDto);
-  rpc PutAccount (AddressPutRequestDto) returns (google.protobuf.Empty);
+  rpc GetAddresses (AddressRequestDto) returns (AddressListResponseDto);
+  rpc PostAddress (AddressRequestDto) returns (AddressResponseDto);
+  rpc PutAddress (AddressPutRequestDto) returns (google.protobuf.Empty);
   rpc DeleteAddress (Id) returns (google.protobuf.Empty);
 }
 
@@ -44,10 +44,10 @@ message AddressListResponseDto {
 }
 
 service User {
-  rpc GetIngredient (Id) returns (UserResponseDto);
-  rpc GetIngredients (UserRequestDto) returns (UserListResponseDto);
-  rpc PostIngredient (UserRequestDto) returns (UserResponseDto);
-  rpc PutIngredient (UserPutRequestDto) returns (google.protobuf.Empty);
+  rpc GetUser (Id) returns (UserResponseDto);
+  rpc GetUsers (UserRequestDto) returns (UserListResponseDto);
+  rpc PostUser (UserRequestDto) returns (UserResponseDto);
+  rpc PutUser (UserPutRequestDto) returns (google.protobuf.Empty);
   rpc DeleteUser (Id) returns (google.protobuf.Empty);
 }
 
