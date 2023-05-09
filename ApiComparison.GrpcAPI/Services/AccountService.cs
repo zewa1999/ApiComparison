@@ -20,7 +20,7 @@ public class AccountService : Account.AccountBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var accountId);
-            account = await _accountService.GetByID(accountId, context.CancellationToken);
+            account = await _accountService.GetByIdAsync(accountId, context.CancellationToken);
         }
 
         return new AccountResponseDto()
@@ -34,7 +34,7 @@ public class AccountService : Account.AccountBase
 
     public override async Task<AccountListResponseDto> GetAccounts(AccountRequestDto request, ServerCallContext context)
     {
-        var accounts = await _accountService.GetAll(context.CancellationToken);
+        var accounts = await _accountService.GetAllAsync(context.CancellationToken);
 
         var accountListResponseDto = new AccountListResponseDto();
 
@@ -54,7 +54,7 @@ public class AccountService : Account.AccountBase
 
     public override async Task<AccountResponseDto> PostAccount(AccountRequestDto request, ServerCallContext context)
     {
-        var account = await _accountService.Insert(new Domain.Entities.Account
+        var account = await _accountService.InsertAsync(new Domain.Entities.Account
         {
             Email = request.Email,
             Password = request.Password,
@@ -75,7 +75,7 @@ public class AccountService : Account.AccountBase
         if (!string.IsNullOrEmpty(request.Id.Id_))
         {
             Guid.TryParse(request.Id.Id_, out var accountId);
-            await _accountService.Update(accountId, new Domain.Entities.Account
+            await _accountService.UpdateAsync(accountId, new Domain.Entities.Account
             {
                 Email = request.Email,
                 Password = request.Password,
@@ -91,7 +91,7 @@ public class AccountService : Account.AccountBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var accountId);
-            await _accountService.DeleteById(accountId, context.CancellationToken);
+            await _accountService.DeleteByIdAsync(accountId, context.CancellationToken);
         }
 
         return new Empty();

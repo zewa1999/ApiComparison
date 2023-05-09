@@ -44,10 +44,10 @@ public abstract class BaseController<TService, TEntity, TRequestDto, TResponseDt
     {
         if (id is not null)
         {
-            return Ok(Mapper.EntityToResponse(await Service.GetByID(id, cancellationToken)));
+            return Ok(Mapper.EntityToResponse(await Service.GetByIdAsync(id, cancellationToken)));
         }
 
-        var entities = await Service.GetAll(cancellationToken);
+        var entities = await Service.GetAllAsync(cancellationToken);
         var entityDtos = entities.Select(Mapper.EntityToResponse).ToList();
 
         return Ok(entityDtos);
@@ -56,7 +56,7 @@ public abstract class BaseController<TService, TEntity, TRequestDto, TResponseDt
     [HttpPost]
     public async Task<IActionResult> Post(TRequestDto requestDto, CancellationToken cancellationToken)
     {
-        var entity = await Service.Insert(Mapper.RequestToEntity(requestDto), cancellationToken);
+        var entity = await Service.InsertAsync(Mapper.RequestToEntity(requestDto), cancellationToken);
 
         var location = Url.Action(nameof(GetById), new { id = entity.Id }) ?? $"/{entity.Id}";
         return Created(location, Mapper.EntityToResponse(entity));
@@ -65,14 +65,14 @@ public abstract class BaseController<TService, TEntity, TRequestDto, TResponseDt
     [HttpPut("{id}")]
     public async Task<IActionResult> Put([Required] Guid id, TRequestDto requestDto, CancellationToken cancellationToken)
     {
-        await Service.Update(id, Mapper.RequestToEntity(requestDto), cancellationToken);
+        await Service.UpdateAsync(id, Mapper.RequestToEntity(requestDto), cancellationToken);
         return NoContent();
     }
 
     [HttpDelete]
     public async Task<IActionResult> Put([Required][FromQuery] Guid id, CancellationToken cancellationToken)
     {
-        await Service.DeleteById(id, cancellationToken);
+        await Service.DeleteByIdAsync(id, cancellationToken);
         return NoContent();
     }
 }

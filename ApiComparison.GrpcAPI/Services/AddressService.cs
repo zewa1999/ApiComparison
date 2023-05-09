@@ -24,7 +24,7 @@ public class AddressService : Address.AddressBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var addressId);
-            address = await _addressService.GetByID(addressId, context.CancellationToken);
+            address = await _addressService.GetByIdAsync(addressId, context.CancellationToken);
         }
 
         return new AddressResponseDto()
@@ -59,7 +59,7 @@ public class AddressService : Address.AddressBase
 
     public override async Task<AddressListResponseDto> GetAddresses(AddressRequestDto request, ServerCallContext context)
     {
-        var addresses = await _addressService.GetAll(context.CancellationToken);
+        var addresses = await _addressService.GetAllAsync(context.CancellationToken);
 
         var addressesListResponseDto = new AddressListResponseDto();
 
@@ -101,9 +101,9 @@ public class AddressService : Address.AddressBase
     {
         Guid.TryParse(request.UserId, out var addressId);
 
-        var user = await _userService.GetByID(addressId, context.CancellationToken);
+        var user = await _userService.GetByIdAsync(addressId, context.CancellationToken);
 
-        var address = await _addressService.Insert(new Domain.Entities.Address
+        var address = await _addressService.InsertAsync(new Domain.Entities.Address
         {
             City = request.City,
             Street = request.Street,
@@ -147,7 +147,7 @@ public class AddressService : Address.AddressBase
         {
             Guid.TryParse(request.Id.Id_, out var addressId);
             Guid.TryParse(request.Id.Id_, out var userId);
-            await _addressService.Update(addressId, new Domain.Entities.Address
+            await _addressService.UpdateAsync(addressId, new Domain.Entities.Address
             {
                 Id = addressId,
                 City = request.City,
@@ -165,7 +165,7 @@ public class AddressService : Address.AddressBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var accountId);
-            await _addressService.DeleteById(accountId, context.CancellationToken);
+            await _addressService.DeleteByIdAsync(accountId, context.CancellationToken);
         }
 
         return new Empty();

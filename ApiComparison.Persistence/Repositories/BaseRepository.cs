@@ -49,7 +49,7 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         await DbContext.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeleteEntity(TEntity entityToDelete, CancellationToken cancellationToken)
+    public async Task Delete(TEntity entityToDelete, CancellationToken cancellationToken)
     {
         var dbSet = DbContext.Set<TEntity>();
 

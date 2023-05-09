@@ -27,7 +27,7 @@ public class UserService : User.UserBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             var guid = Guid.TryParse(request.Id_, out var userId);
-            user = await _userService.GetByID(userId, context.CancellationToken);
+            user = await _userService.GetByIdAsync(userId, context.CancellationToken);
         }
 
         return new UserResponseDto
@@ -55,7 +55,7 @@ public class UserService : User.UserBase
 
     public override async Task<UserListResponseDto> GetUsers(UserRequestDto request, ServerCallContext context)
     {
-        var users = await _userService.GetAll(context.CancellationToken);
+        var users = await _userService.GetAllAsync(context.CancellationToken);
 
         return new UserListResponseDto
         {
@@ -90,9 +90,9 @@ public class UserService : User.UserBase
 
         Guid.TryParse(request.AddressId, out var addressId);
         Guid.TryParse(request.AccountId, out var accountId);
-        var address = await _addressService.GetByID(addressId, context.CancellationToken);
-        var account = await _accountService.GetByID(accountId, context.CancellationToken);
-        user = await _userService.Insert(new Domain.Entities.User
+        var address = await _addressService.GetByIdAsync(addressId, context.CancellationToken);
+        var account = await _accountService.GetByIdAsync(accountId, context.CancellationToken);
+        user = await _userService.InsertAsync(new Domain.Entities.User
         {
             FirstName = request.FirstName,
             LastName = request.LastName,
@@ -133,7 +133,7 @@ public class UserService : User.UserBase
         {
             Guid.TryParse(request.AccountId, out var accountId);
             Guid.TryParse(request.AddressId, out var addressId);
-            await _userService.Update(addressId, new Domain.Entities.User
+            await _userService.UpdateAsync(addressId, new Domain.Entities.User
             {
                 Bio = request.Bio,
                 FirstName = request.FirstName,
@@ -151,7 +151,7 @@ public class UserService : User.UserBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var userId);
-            await _addressService.DeleteById(userId, context.CancellationToken);
+            await _addressService.DeleteByIdAsync(userId, context.CancellationToken);
         }
 
         return new Empty();

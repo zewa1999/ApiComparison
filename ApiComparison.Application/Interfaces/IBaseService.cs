@@ -5,13 +5,13 @@ namespace ApiComparison.Application.Interfaces;
 public interface IBaseService<TEntity>
     where TEntity : BaseEntity
 {
-    Task<TEntity> Insert(TEntity entity, CancellationToken cancellationToken);
+    Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken);
 
-    Task Update(Guid entityId, TEntity entity, CancellationToken cancellationToken);
+    Task UpdateAsync(Guid entityId, TEntity entity, CancellationToken cancellationToken);
 
-    Task DeleteById(Guid entityId, CancellationToken cancellationToken);
+    Task DeleteByIdAsync(Guid entityId, CancellationToken cancellationToken);
 
-    Task<TEntity> GetByID(Guid? id, CancellationToken cancellationToken);
+    Task<TEntity> GetByIdAsync(Guid? id, CancellationToken cancellationToken);
 
-    Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken);
+    Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken);
 }

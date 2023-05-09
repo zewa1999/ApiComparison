@@ -23,7 +23,7 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TEnt
         Validator = validator;
     }
 
-    public async Task<TEntity> GetByID(Guid? entityId, CancellationToken cancellationToken)
+    public async Task<TEntity> GetByIdAsync(Guid? entityId, CancellationToken cancellationToken)
     {
         var entity = await Repository.GetByIdAsync(entityId!, cancellationToken);
 
@@ -35,18 +35,18 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TEnt
         return entity;
     }
 
-    public async Task<IEnumerable<TEntity>> GetAll(CancellationToken cancellationToken)
+    public async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken)
     {
         return await Repository.GetAllAsync(cancellationToken);
     }
 
-    public async Task<TEntity> Insert(TEntity entity, CancellationToken cancellationToken)
+    public async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken)
     {
         Validator.ValidateAndThrowAggregateException(entity);
         return await Repository.InsertAsync(entity, cancellationToken);
     }
 
-    public async Task Update(Guid entityId, TEntity entity, CancellationToken cancellationToken)
+    public async Task UpdateAsync(Guid entityId, TEntity entity, CancellationToken cancellationToken)
     {
         Validator.ValidateAndThrowAggregateException(entity);
 
@@ -61,7 +61,7 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TEnt
         await Repository.UpdateAsync(entity, cancellationToken);
     }
 
-    public async Task DeleteById(Guid entityId, CancellationToken cancellationToken)
+    public async Task DeleteByIdAsync(Guid entityId, CancellationToken cancellationToken)
     {
         var entity = await Repository.GetByIdAsync(entityId, cancellationToken);
 
@@ -70,6 +70,6 @@ public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TEnt
             throw new EntityNotFoundException(typeof(TEntity));
         }
 
-        await Repository.DeleteEntity(entity, cancellationToken);
+        await Repository.Delete(entity, cancellationToken);
     }
 }

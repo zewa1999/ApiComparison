@@ -27,7 +27,7 @@ public class DishService : Dish.DishBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var addressId);
-            dish = await _dishService.GetByID(addressId, context.CancellationToken);
+            dish = await _dishService.GetByIdAsync(addressId, context.CancellationToken);
         }
 
         var response = new DishResponseDto()
@@ -50,7 +50,7 @@ public class DishService : Dish.DishBase
 
     public override async Task<DishListResponseDto> GetDishes(DishRequestDto request, ServerCallContext context)
     {
-        var dishes = await _dishService.GetAll(context.CancellationToken);
+        var dishes = await _dishService.GetAllAsync(context.CancellationToken);
 
         return new DishListResponseDto
         {
@@ -76,9 +76,9 @@ public class DishService : Dish.DishBase
     public override async Task<DishResponseDto> PostDish(DishRequestDto request, ServerCallContext context)
     {
         // ugly linq thing
-        var dishIngredients = await Task.WhenAll(request.IngredientIds.Select(async x => await _ingredientService.GetByID(Guid.Parse(x), context.CancellationToken)));
+        var dishIngredients = await Task.WhenAll(request.IngredientIds.Select(async x => await _ingredientService.GetByIdAsync(Guid.Parse(x), context.CancellationToken)));
 
-        var dish = await _dishService.Insert(new Domain.Entities.Dish
+        var dish = await _dishService.InsertAsync(new Domain.Entities.Dish
         {
             Description = request.Description,
             Name = request.Name,
@@ -105,12 +105,12 @@ public class DishService : Dish.DishBase
 
     public override async Task<Empty> PutDish(DishPutRequestDto request, ServerCallContext context)
     {
-        var dishIngredients = await Task.WhenAll(request.IngredientIds.Select(async x => await _ingredientService.GetByID(Guid.Parse(x), context.CancellationToken)));
+        var dishIngredients = await Task.WhenAll(request.IngredientIds.Select(async x => await _ingredientService.GetByIdAsync(Guid.Parse(x), context.CancellationToken)));
 
         if (!string.IsNullOrEmpty(request.Id.Id_))
         {
             Guid.TryParse(request.Id.Id_, out var dishId);
-            await _dishService.Update(dishId, new Domain.Entities.Dish
+            await _dishService.UpdateAsync(dishId, new Domain.Entities.Dish
             {
                 Description = request.Description,
                 Name = request.Name,
@@ -127,7 +127,7 @@ public class DishService : Dish.DishBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var dishId);
-            await _dishService.DeleteById(dishId, context.CancellationToken);
+            await _dishService.DeleteByIdAsync(dishId, context.CancellationToken);
         }
 
         return new Empty();

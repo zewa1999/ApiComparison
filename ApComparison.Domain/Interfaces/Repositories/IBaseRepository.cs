@@ -13,5 +13,5 @@ public interface IBaseRepository<TEntity>
 
     Task UpdateAsync(TEntity incoming, CancellationToken cancellationToken);
 
-    Task DeleteEntity(TEntity entityToDelete, CancellationToken cancellationToken);
+    Task Delete(TEntity entityToDelete, CancellationToken cancellationToken);
 }

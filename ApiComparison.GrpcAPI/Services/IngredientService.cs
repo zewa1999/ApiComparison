@@ -28,7 +28,7 @@ public class IngredientService : Ingredient.IngredientBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var ingredientId);
-            ingredient = await _ingredientService.GetByID(ingredientId, context.CancellationToken);
+            ingredient = await _ingredientService.GetByIdAsync(ingredientId, context.CancellationToken);
         }
 
         var response = new IngredientResponseDto
@@ -52,7 +52,7 @@ public class IngredientService : Ingredient.IngredientBase
 
     public override async Task<IngredientListResponseDto> GetIngredients(IngredientRequestDto request, ServerCallContext context)
     {
-        var ingredients = await _ingredientService.GetAll(context.CancellationToken);
+        var ingredients = await _ingredientService.GetAllAsync(context.CancellationToken);
 
         return new IngredientListResponseDto
         {
@@ -78,9 +78,9 @@ public class IngredientService : Ingredient.IngredientBase
     public override async Task<IngredientResponseDto> PostIngredient(IngredientRequestDto request, ServerCallContext context)
     {
         // ugly linq thing
-        var ingredientDishes = await Task.WhenAll(request.DishIds.Select(async x => await _dishService.GetByID(Guid.Parse(x), context.CancellationToken)));
+        var ingredientDishes = await Task.WhenAll(request.DishIds.Select(async x => await _dishService.GetByIdAsync(Guid.Parse(x), context.CancellationToken)));
 
-        var ingredient = await _ingredientService.Insert(new Domain.Entities.Ingredient
+        var ingredient = await _ingredientService.InsertAsync(new Domain.Entities.Ingredient
         {
             Name = request.Name,
             Quantity = request.Quantity,
@@ -107,12 +107,12 @@ public class IngredientService : Ingredient.IngredientBase
 
     public override async Task<Empty> PutIngredient(IngredientPutRequestDto request, ServerCallContext context)
     {
-        var ingredientDishes = await Task.WhenAll(request.DishIds.Select(async x => await _dishService.GetByID(Guid.Parse(x), context.CancellationToken)));
+        var ingredientDishes = await Task.WhenAll(request.DishIds.Select(async x => await _dishService.GetByIdAsync(Guid.Parse(x), context.CancellationToken)));
 
         if (!string.IsNullOrEmpty(request.Id.Id_))
         {
             Guid.TryParse(request.Id.Id_, out var ingredientId);
-            await _ingredientService.Update(ingredientId, new Domain.Entities.Ingredient
+            await _ingredientService.UpdateAsync(ingredientId, new Domain.Entities.Ingredient
             {
                 Name = request.Name,
                 Quantity = request.Quantity,
@@ -129,7 +129,7 @@ public class IngredientService : Ingredient.IngredientBase
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var ingredientId);
-            await _ingredientService.DeleteById(ingredientId, context.CancellationToken);
+            await _ingredientService.DeleteByIdAsync(ingredientId, context.CancellationToken);
         }
 
         return new Empty();
