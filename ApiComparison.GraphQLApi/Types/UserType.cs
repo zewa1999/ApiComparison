@@ -1,7 +1,4 @@
 ﻿using ApiComparison.Domain.Entities;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using System;
-using ApiComparison.Domain.Interfaces.Repositories;
 using ApiComparison.Application.Interfaces;
 
 namespace ApiComparison.GraphQLApi.Types;
