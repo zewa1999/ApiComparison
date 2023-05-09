@@ -14,7 +14,6 @@
 	
   <ItemGroup>
     <ProjectReference Include="..\ApiComparison.Application\ApiComparison.Application.csproj" />
-    <ProjectReference Include="..\ApiComparison.Mapper\ApiComparison.Mapping.csproj" />
     <ProjectReference Include="..\ApiComparison.Persistence\ApiComparison.EfCore.Persistence.csproj" />
     <ProjectReference Include="..\ApiComparison.ValidationL\ApiComparison.Validation.csproj" />
   </ItemGroup>

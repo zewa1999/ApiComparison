@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
-public class AccountService : BaseService<Account, AccountRequestDto, AccountResponseDto>, IAccountService
+public class AccountService : BaseService<Account>, IAccountService
 {
     public AccountService(IAccountRepository repository,
                           IValidator<Account> validator) : base(repository, validator)

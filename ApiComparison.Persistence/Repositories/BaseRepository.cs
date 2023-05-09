@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;
 
-public class BaseRepository<TEntity> : IBaseRepository<TEntity>
+public class BaseRepository<TEntity> : IBaseRepository<TEntity>, IAsyncDisposable
     where TEntity : BaseEntity
 {
     private readonly ApiComparisonDbContext DbContext;
@@ -61,5 +61,12 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity>
         dbSet.Remove(entityToDelete!);
 
         await DbContext.SaveChangesAsync(cancellationToken);
+    }
+
+    // this is implemented due to the fact of parallelization of queries when using graphql
+    // we need to dispose the dbcontext when the DI container disposes the repository
+    public ValueTask DisposeAsync()
+    {
+        return DbContext.DisposeAsync();
     }
 }

@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
-public class AddressService : BaseService<Address, AddressRequestDto, AddressResponseDto>, IAddressService
+public class AddressService : BaseService<Address>, IAddressService
 {
     public AddressService(IAddressRepository repository,
                           IValidator<Address> validator) : base(repository, validator)

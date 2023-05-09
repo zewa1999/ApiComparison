@@ -7,7 +7,7 @@ using FluentValidation;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
-public class IngredientService : BaseService<Ingredient, IngredientRequestDto, IngredientResponseDto>, IIngredientService
+public class IngredientService : BaseService<Ingredient>, IIngredientService
 {
     public IngredientService(IIngredientRepository repository, IValidator<Ingredient> validator) : base(repository, validator)
     {

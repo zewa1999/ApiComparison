@@ -9,9 +9,7 @@ using FluentValidation;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
-public class BaseService<TEntity, TRequestDto, TResponseDto> : IBaseService<TEntity>
-    where TRequestDto : BaseRequestDto
-    where TResponseDto : BaseResponseDto
+public class BaseService<TEntity> : IBaseService<TEntity>
     where TEntity : BaseEntity
 {
     protected readonly IBaseRepository<TEntity> Repository;

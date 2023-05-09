@@ -1,6 +1,7 @@
 ﻿using ApiComparison.Contracts.RequestDto;
 using ApiComparison.Contracts.ResponseDto;
 using ApiComparison.Domain.Entities;
+using ApiComparison.Mapping.Base;
 using ApiComparison.Mapping.Mappers;
 using Microsoft.Extensions.DependencyInjection;
 

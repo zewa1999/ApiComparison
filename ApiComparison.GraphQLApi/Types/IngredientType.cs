@@ -28,7 +28,7 @@ public class IngredientType : ObjectType<Ingredient>
 
     private class IngredientResolvers
     {
-        public async Task<IEnumerable<Dish>> GetIngredients(Ingredient ingredient, [ScopedService] IDishService dishService, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Dish>> GetIngredients([Parent] Ingredient ingredient, [ScopedService] IDishService dishService, CancellationToken cancellationToken)
         {
             var dishes = await dishService.GetAllAsync(cancellationToken);
             ArgumentNullException.ThrowIfNull(dishes);

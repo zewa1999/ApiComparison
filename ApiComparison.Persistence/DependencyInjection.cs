@@ -10,15 +10,15 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddPersistenceLayer(this IServiceCollection serviceCollection, IConfiguration configuration)
     {
-        serviceCollection.AddDbContext<ApiComparisonDbContext>(options =>
+        serviceCollection.AddPooledDbContextFactory<ApiComparisonDbContext>(options =>
         {
             options.UseNpgsql(configuration.GetConnectionString("Pgsql Connection String"));
         });
-        serviceCollection.AddScoped<IAccountRepository, AccountRepository>();
-        serviceCollection.AddScoped<IAddressRepository, AddressRepository>();
-        serviceCollection.AddScoped<IDishRepository, DishRepository>();
-        serviceCollection.AddScoped<IIngredientRepository, IngredientRepository>();
-        serviceCollection.AddScoped<IUserRepository, UserRepository>();
+        serviceCollection.AddTransient<IAccountRepository, AccountRepository>();
+        serviceCollection.AddTransient<IAddressRepository, AddressRepository>();
+        serviceCollection.AddTransient<IDishRepository, DishRepository>();
+        serviceCollection.AddTransient<IIngredientRepository, IngredientRepository>();
+        serviceCollection.AddTransient<IUserRepository, UserRepository>();
 
         return serviceCollection;
     }

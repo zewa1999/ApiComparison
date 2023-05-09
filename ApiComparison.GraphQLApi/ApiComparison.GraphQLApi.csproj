@@ -16,6 +16,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ApiComparison.Application\ApiComparison.Application.csproj" />
 		<ProjectReference Include="..\ApiComparison.Infrastructure\ApiComparison.Infrastructure.csproj" />
+		<ProjectReference Include="..\ApiComparison.Mapper\ApiComparison.Mapping.csproj" />
 	</ItemGroup>
 
 </Project>

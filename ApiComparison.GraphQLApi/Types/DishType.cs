@@ -29,7 +29,7 @@ public class DishType : ObjectType<Dish>
 
     private class DishResolvers
     {
-        public async Task<IEnumerable<Ingredient>> GetIngredients(Dish dish, [ScopedService] IIngredientService ingredientService, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Ingredient>> GetIngredients([Parent] Dish dish, [ScopedService] IIngredientService ingredientService, CancellationToken cancellationToken)
         {
             var ingredients = await ingredientService.GetAllAsync(cancellationToken);
             ArgumentNullException.ThrowIfNull(ingredients);

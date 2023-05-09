@@ -40,14 +40,14 @@ public class UserType : ObjectType<User>
 
     private class UserResolvers
     {
-        public async Task<Account> GetAccount(User user, [ScopedService] IAccountService accountService, CancellationToken cancellationToken)
+        public async Task<Account> GetAccount([Parent] User user, [ScopedService] IAccountService accountService, CancellationToken cancellationToken)
         {
             var account = await accountService.GetByIdAsync(user.AccountId, cancellationToken);
             ArgumentNullException.ThrowIfNull(account);
             return account;
         }
 
-        public async Task<Address> GetAddress(User user, [ScopedService] IAddressService addressService, CancellationToken cancellationToken)
+        public async Task<Address> GetAddress([Parent] User user, [ScopedService] IAddressService addressService, CancellationToken cancellationToken)
         {
             var address = await addressService.GetByIdAsync(user.AddressId, cancellationToken);
             ArgumentNullException.ThrowIfNull(address);

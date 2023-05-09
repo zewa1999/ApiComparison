@@ -34,7 +34,7 @@ public class AddressType : ObjectType<Address>
 
 internal class AddressResolvers
 {
-    public async Task<User> GetUser(Address address, [ScopedService] IUserService userRepository, CancellationToken cancellationToken)
+    public async Task<User> GetUser([Parent] Address address, [ScopedService] IUserService userRepository, CancellationToken cancellationToken)
     {
         var user = await userRepository.GetByIdAsync(address.UserId, cancellationToken);
         ArgumentNullException.ThrowIfNull(user);
