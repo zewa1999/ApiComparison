@@ -1,5 +1,5 @@
 ﻿using ApiComparison.Domain.Entities;
-using ApiComparison.Application.Interfaces;
+using ApiComparison.Application.Interfaces.BusinessServices;
 
 namespace ApiComparison.GraphQLApi.Types;
 

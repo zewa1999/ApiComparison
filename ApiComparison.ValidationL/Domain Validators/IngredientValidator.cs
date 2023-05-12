@@ -16,9 +16,8 @@ public class IngredientValidator : AbstractValidator<Ingredient>
             .NotNull()
             .NotEmpty();
 
-        RuleForEach(x => x.DishIngredients)
-            .NotEmpty()
+        RuleForEach(x => x.Dishes)
             .NotNull()
-            .SetValidator(new DishValidator());
+            .SetValidator(x => new DishValidator());
     }
 }

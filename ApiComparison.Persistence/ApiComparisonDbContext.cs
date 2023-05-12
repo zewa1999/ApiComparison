@@ -1,5 +1,7 @@
 ﻿using ApiComparison.Domain.Entities;
+using ApiComparison.EfCore.Persistence.ValueGenerators;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection;
 
 namespace ApiComparison.EfCore.Persistence;
@@ -15,12 +17,30 @@ public class ApiComparisonDbContext : DbContext
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+        foreach (IMutableEntityType mutableEntityType in builder.Model.GetEntityTypes())
+        {
+            if (mutableEntityType.ClrType.IsAssignableTo(typeof(BaseEntity)))
+            {
+                IMutableProperty createdAtProperty = mutableEntityType.GetProperty(nameof(BaseEntity.CreatedAt));
+                createdAtProperty.ValueGenerated = ValueGenerated.OnAdd;
+                createdAtProperty.SetAfterSaveBehavior(PropertySaveBehavior.Ignore);
+                createdAtProperty.SetDefaultValueSql("NOW()");
+
+                IMutableProperty updatedAtProperty =
+                    mutableEntityType.GetProperty(nameof(BaseEntity.LastUpdatedAt));
+                updatedAtProperty.ValueGenerated = ValueGenerated.OnAddOrUpdate;
+                updatedAtProperty.SetAfterSaveBehavior(PropertySaveBehavior.Save);
+                updatedAtProperty.SetValueGeneratorFactory((_, _) => new DateTimeNowValueGenerator());
+                updatedAtProperty.SetDefaultValueSql("NOW()");
+            }
+        }
+
         base.OnModelCreating(builder);
     }
 
     public DbSet<Account> Accounts { get; set; } = null!;
-    public DbSet<Account> Addresses { get; set; } = null!;
-    public DbSet<Account> Dishes { get; set; } = null!;
-    public DbSet<Account> Ingredients { get; set; } = null!;
-    public DbSet<Account> Users { get; set; } = null!;
+    public DbSet<Address> Addresses { get; set; } = null!;
+    public DbSet<Dish> Dishes { get; set; } = null!;
+    public DbSet<Ingredient> Ingredients { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
 }

@@ -1,4 +1,4 @@
-﻿using ApiComparison.Application.Interfaces;
+﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.Domain.Entities;
 using ApiComparison.Domain.Interfaces.Repositories;
 

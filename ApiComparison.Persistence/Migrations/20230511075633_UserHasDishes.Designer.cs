@@ -3,17 +3,20 @@ using System;
 using ApiComparison.EfCore.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ApiComparison.EfCore.Persistence.Migrations
+namespace ApiComparison.EfCore.Persistence.ApiComparison.EfCore.Persistence
 {
     [DbContext(typeof(ApiComparisonDbContext))]
-    partial class ApiComparisonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230511075633_UserHasDishes")]
+    partial class UserHasDishes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

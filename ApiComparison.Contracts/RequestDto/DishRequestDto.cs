@@ -5,5 +5,5 @@ public record DishRequestDto : BaseRequestDto
     public required string Name { get; set; }
     public required string Description { get; set; }
     public required string PhotoUrl { get; set; }
-    public ICollection<Guid> DishIngredientsRequestIds { get; set; } = null!;
+    public ICollection<Guid> IngredientsIds { get; set; } = null!;
 }

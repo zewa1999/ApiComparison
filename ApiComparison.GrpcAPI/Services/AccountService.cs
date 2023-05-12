@@ -1,4 +1,4 @@
-﻿using ApiComparison.Application.Interfaces;
+﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.GrpcAPI;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;

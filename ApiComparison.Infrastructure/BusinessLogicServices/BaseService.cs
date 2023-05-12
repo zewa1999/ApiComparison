@@ -1,6 +1,4 @@
-﻿using ApiComparison.Application.Interfaces;
-using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
+﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.Domain.Entities;
 using ApiComparison.Domain.Exceptions;
 using ApiComparison.Domain.Interfaces.Repositories;
@@ -38,13 +36,13 @@ public class BaseService<TEntity> : IBaseService<TEntity>
         return await Repository.GetAllAsync(cancellationToken);
     }
 
-    public async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken)
+    public virtual async Task<TEntity> InsertAsync(TEntity entity, CancellationToken cancellationToken)
     {
         Validator.ValidateAndThrowAggregateException(entity);
         return await Repository.InsertAsync(entity, cancellationToken);
     }
 
-    public async Task UpdateAsync(Guid entityId, TEntity entity, CancellationToken cancellationToken)
+    public virtual async Task UpdateAsync(Guid entityId, TEntity entity, CancellationToken cancellationToken)
     {
         Validator.ValidateAndThrowAggregateException(entity);
 

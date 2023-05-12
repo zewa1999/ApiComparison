@@ -20,3 +20,5 @@ if (app.Environment.IsDevelopment())
 app.AddGraphQL();
 
 app.Run();
+
+// here we should change the repositories and services in transient

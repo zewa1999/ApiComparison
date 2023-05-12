@@ -9,27 +9,24 @@ public class DishIngredientMapper : IMapper<Dish, DishRequestDto, DishResponseDt
 {
     public Ingredient RequestToEntity(IngredientRequestDto requestDto)
     {
-        var dishIngredientsEntities = new List<Dish>();
-        //foreach (var dishRequestDto in dishRequestDtos)
-        //{
-        //    dishIngredientsEntities.Add(RequestToEntity(dishRequestDto, null));
-        //}
-
         return new Ingredient
         {
             Name = requestDto.Name,
             Quantity = requestDto.Quantity,
-            UnitOfMeasure = requestDto.UnitOfMeasure,
-            DishIngredients = dishIngredientsEntities
+            UnitOfMeasure = requestDto.UnitOfMeasure
         };
     }
 
     public IngredientResponseDto EntityToResponse(Ingredient entity)
     {
         var dishIngredientsEntities = new List<DishResponseDto>();
-        foreach (var dish in entity.DishIngredients)
+
+        if (entity.Dishes is not null)
         {
-            dishIngredientsEntities.Add(EntityToResponse(dish));
+            foreach (var dish in entity.Dishes)
+            {
+                dishIngredientsEntities.Add(EntityToResponse(dish));
+            }
         }
 
         return new IngredientResponseDto
@@ -38,32 +35,24 @@ public class DishIngredientMapper : IMapper<Dish, DishRequestDto, DishResponseDt
             Name = entity.Name,
             Quantity = entity.Quantity,
             UnitOfMeasure = entity.UnitOfMeasure,
-            DishIngredients = dishIngredientsEntities
+            Dishes = dishIngredientsEntities
         };
     }
 
     public Dish RequestToEntity(DishRequestDto requestDto)
     {
-        var dishIngredientsEntities = new List<Ingredient>();
-        // asta trebuie refacut
-        //foreach (var ingredientRequestDto in requestDtos)
-        //{
-        //    dishIngredientsEntities.Add(RequestToEntity(ingredientRequestDto, null));
-        //}
-
         return new Dish
         {
             Name = requestDto.Name,
             Description = requestDto.Description,
-            PhotoUrl = requestDto.PhotoUrl,
-            DishIngredients = dishIngredientsEntities
+            PhotoUrl = requestDto.PhotoUrl
         };
     }
 
     public DishResponseDto EntityToResponse(Dish dish)
     {
         var dishIngredientsResponseDtos = new List<IngredientResponseDto>();
-        foreach (var entity in dish.DishIngredients)
+        foreach (var entity in dish.Ingredients)
         {
             dishIngredientsResponseDtos.Add(EntityToResponse(entity));
         }
@@ -74,7 +63,7 @@ public class DishIngredientMapper : IMapper<Dish, DishRequestDto, DishResponseDt
             Name = dish.Name,
             Description = dish.Description,
             PhotoUrl = dish.PhotoUrl,
-            DishIngredientsResponseDto = dishIngredientsResponseDtos
+            Ingredients = dishIngredientsResponseDtos
         };
     }
 }

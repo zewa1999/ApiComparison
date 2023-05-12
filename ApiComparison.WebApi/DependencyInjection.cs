@@ -1,5 +1,6 @@
 ﻿using ApiComparison.Application;
 using ApiComparison.Infrastructure;
+using ApiComparison.Mapping;
 
 namespace ApiComparison.WebApi;
 
@@ -9,6 +10,7 @@ public static class DependencyInjection
     {
         serviceCollection.AddApplicationLayer();
         serviceCollection.AddInfrastructureLayer(configuration);
+        serviceCollection.AddMappingLayer();
 
         return serviceCollection;
     }

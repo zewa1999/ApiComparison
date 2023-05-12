@@ -10,10 +10,6 @@ internal class AddressConfiguration : IEntityTypeConfiguration<Address>
     {
         builder.HasKey(a => a.Id);
 
-        builder.HasOne(a => a.User)
-            .WithOne()
-            .HasForeignKey<Address>(a => a.UserId);
-
         builder.Property(a => a.Street)
             .IsRequired()
             .HasMaxLength(30);

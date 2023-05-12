@@ -22,7 +22,7 @@ internal class DishConfiguration : IEntityTypeConfiguration<Dish>
             .IsRequired()
             .HasMaxLength(120);
 
-        builder.HasMany(d => d.DishIngredients)
-            .WithMany(d => d.DishIngredients);
+        builder.HasMany(d => d.Ingredients)
+            .WithMany(d => d.Dishes);
     }
 }

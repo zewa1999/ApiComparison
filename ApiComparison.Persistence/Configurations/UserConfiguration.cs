@@ -29,5 +29,8 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(u => u.Address)
             .WithOne()
             .HasForeignKey<User>(a => a.AddressId);
+
+        builder.HasMany(u => u.Dishes)
+            .WithOne();
     }
 }

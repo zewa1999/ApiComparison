@@ -9,4 +9,5 @@ public record User : BaseEntity
     public Account Account { get; set; } = null!;
     public Guid AddressId { get; set; }
     public Address Address { get; set; } = null!;
+    public ICollection<Dish> Dishes { get; set; } = null!;
 }

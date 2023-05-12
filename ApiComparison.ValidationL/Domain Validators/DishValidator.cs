@@ -15,9 +15,10 @@ public class DishValidator : AbstractValidator<Dish>
         RuleFor(x => x.PhotoUrl)
             .MaximumLength(120)
             .NotNull()
-            .NotEmpty();
+            .NotEmpty()
+            .Must(uri => Uri.TryCreate(uri, UriKind.Absolute, out _)).When(x => !string.IsNullOrEmpty(x.PhotoUrl));
 
-        RuleForEach(x => x.DishIngredients)
+        RuleForEach(x => x.Ingredients)
             .NotNull()
             .NotEmpty()
             .SetValidator(new IngredientValidator());

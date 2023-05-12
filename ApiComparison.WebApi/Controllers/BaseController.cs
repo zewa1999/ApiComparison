@@ -1,4 +1,4 @@
-﻿using ApiComparison.Application.Interfaces;
+﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.Contracts.RequestDto;
 using ApiComparison.Contracts.ResponseDto;
 using ApiComparison.Domain.Entities;
@@ -9,10 +9,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApiComparison.WebApi.Controllers;
 
+// tranzactii pentru adaugarea in db la user(adica si account, daca crapa una, e revert)
 // Return Problem
 // Testat controllere
-// Grpc Services
-// GraphQl Services
 // Pagination
 // Authentication and Authorizationr + API Key authentication.;
 // Caching
@@ -20,8 +19,9 @@ namespace ApiComparison.WebApi.Controllers;
 // Replica Set for DBs(Idk if caching also, but we'll see
 // Kubernetes
 // Frontend
+
+// refactorizare, daca o proprietate e nula sau empty nu o adaug si de facut endpointi gen: /dish/{id}/ingredients si unde mai e nevoie
 [ApiController]
-[Route("[controller]")]
 [TypeFilter(typeof(AggregateExceptionFilterAttribute))]
 [TypeFilter(typeof(EntityNotFoundExceptionFilterAttribute))]
 public abstract class BaseController<TService, TEntity, TRequestDto, TResponseDto> : ControllerBase
@@ -40,7 +40,7 @@ public abstract class BaseController<TService, TEntity, TRequestDto, TResponseDt
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetById([FromQuery] Guid? id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Get([FromQuery] Guid? id, CancellationToken cancellationToken)
     {
         if (id is not null)
         {
@@ -54,16 +54,16 @@ public abstract class BaseController<TService, TEntity, TRequestDto, TResponseDt
     }
 
     [HttpPost]
-    public async Task<IActionResult> Post(TRequestDto requestDto, CancellationToken cancellationToken)
+    public virtual async Task<IActionResult> Post(TRequestDto requestDto, CancellationToken cancellationToken)
     {
         var entity = await Service.InsertAsync(Mapper.RequestToEntity(requestDto), cancellationToken);
 
-        var location = Url.Action(nameof(GetById), new { id = entity.Id }) ?? $"/{entity.Id}";
+        var location = Url.Action(nameof(Get), new { id = entity.Id }) ?? $"/{entity.Id}";
         return Created(location, Mapper.EntityToResponse(entity));
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put([Required] Guid id, TRequestDto requestDto, CancellationToken cancellationToken)
+    public virtual async Task<IActionResult> Put([Required] Guid id, TRequestDto requestDto, CancellationToken cancellationToken)
     {
         await Service.UpdateAsync(id, Mapper.RequestToEntity(requestDto), cancellationToken);
         return NoContent();

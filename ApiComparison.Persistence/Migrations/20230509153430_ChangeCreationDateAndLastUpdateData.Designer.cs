@@ -3,17 +3,20 @@ using System;
 using ApiComparison.EfCore.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace ApiComparison.EfCore.Persistence.Migrations
+namespace ApiComparison.EfCore.Persistence.ApiComparison.EfCore.Persistence
 {
     [DbContext(typeof(ApiComparisonDbContext))]
-    partial class ApiComparisonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230509153430_ChangeCreationDateAndLastUpdateData")]
+    partial class ChangeCreationDateAndLastUpdateData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,12 +90,13 @@ namespace ApiComparison.EfCore.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("UserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Address");
                 });
@@ -216,24 +220,28 @@ namespace ApiComparison.EfCore.Persistence.Migrations
 
             modelBuilder.Entity("DishIngredient", b =>
                 {
-                    b.Property<Guid>("DishesId")
+                    b.Property<Guid>("DishIngredientsId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("IngredientsId")
+                    b.Property<Guid>("DishIngredientsId1")
                         .HasColumnType("uuid");
 
-                    b.HasKey("DishesId", "IngredientsId");
+                    b.HasKey("DishIngredientsId", "DishIngredientsId1");
 
-                    b.HasIndex("IngredientsId");
+                    b.HasIndex("DishIngredientsId1");
 
                     b.ToTable("DishIngredient");
                 });
 
             modelBuilder.Entity("ApiComparison.Domain.Entities.Address", b =>
                 {
-                    b.HasOne("ApiComparison.Domain.Entities.User", null)
-                        .WithMany("Dishes")
-                        .HasForeignKey("UserId");
+                    b.HasOne("ApiComparison.Domain.Entities.User", "User")
+                        .WithOne()
+                        .HasForeignKey("ApiComparison.Domain.Entities.Address", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ApiComparison.Domain.Entities.User", b =>
@@ -259,20 +267,15 @@ namespace ApiComparison.EfCore.Persistence.Migrations
                 {
                     b.HasOne("ApiComparison.Domain.Entities.Dish", null)
                         .WithMany()
-                        .HasForeignKey("DishesId")
+                        .HasForeignKey("DishIngredientsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ApiComparison.Domain.Entities.Ingredient", null)
                         .WithMany()
-                        .HasForeignKey("IngredientsId")
+                        .HasForeignKey("DishIngredientsId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ApiComparison.Domain.Entities.User", b =>
-                {
-                    b.Navigation("Dishes");
                 });
 #pragma warning restore 612, 618
         }

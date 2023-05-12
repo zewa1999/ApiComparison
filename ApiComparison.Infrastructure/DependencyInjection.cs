@@ -1,4 +1,4 @@
-﻿using ApiComparison.Application.Interfaces;
+﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.EfCore.Persistence;
 using ApiComparison.Infrastructure.BusinessLogicServices;
 using ApiComparison.Validation;
@@ -20,12 +20,11 @@ public static class DependencyInjection
 
     public static IServiceCollection AddServiceLayer(this IServiceCollection serviceCollection)
     {
-        // these are transient because the dbcontext can throw errors when multiple queries are run in parallel using the graphql presentation layer
-        serviceCollection.AddTransient<IAccountService, AccountService>();
-        serviceCollection.AddTransient<IAddressService, AddressService>();
-        serviceCollection.AddTransient<IDishService, DishService>();
-        serviceCollection.AddTransient<IIngredientService, IngredientService>();
-        serviceCollection.AddTransient<IUserService, UserService>();
+        serviceCollection.AddScoped<IAccountService, AccountService>();
+        serviceCollection.AddScoped<IAddressService, AddressService>();
+        serviceCollection.AddScoped<IDishService, DishService>();
+        serviceCollection.AddScoped<IIngredientService, IngredientService>();
+        serviceCollection.AddScoped<IUserService, UserService>();
 
         return serviceCollection;
     }

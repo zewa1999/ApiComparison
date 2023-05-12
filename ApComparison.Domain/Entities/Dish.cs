@@ -5,5 +5,5 @@ public record Dish : BaseEntity
     public required string Name { get; set; }
     public required string Description { get; set; }
     public required string PhotoUrl { get; set; }
-    public ICollection<Ingredient> DishIngredients { get; set; } = null!;
+    public ICollection<Ingredient> Ingredients { get; set; } = null!;
 }
