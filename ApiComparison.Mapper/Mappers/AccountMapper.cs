@@ -1,11 +1,12 @@
-﻿using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
+﻿using ApiComparison.Contracts.AccountDtos;
+using ApiComparison.Contracts.UserDtos;
 using ApiComparison.Domain.Entities;
 using ApiComparison.Mapping.Base;
+using System.Threading;
 
 namespace ApiComparison.Mapping.Mappers;
 
-public class AccountMapper : IMapper<Account, AccountRequestDto, AccountResponseDto>
+internal class AccountMapper : IAccountMapper
 {
     public Account RequestToEntity(AccountRequestDto requestDto)
     {
@@ -23,8 +24,17 @@ public class AccountMapper : IMapper<Account, AccountRequestDto, AccountResponse
         {
             Id = account.Id,
             Username = account.Username,
-            Password = account.Password,
             Email = account.Email
+        };
+    }
+
+    public AccountRequestDto UserRequestToAccountRequest(UserCreateRequestDto requestDto)
+    {
+        return new AccountRequestDto
+        {
+            Email = requestDto.Email,
+            Password = requestDto.Password,
+            Username = requestDto.Username
         };
     }
 }

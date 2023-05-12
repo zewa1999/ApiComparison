@@ -1,8 +1,13 @@
 using ApiComparison.WebApi;
+using ApiComparison.WebApi.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(config =>
+{
+    config.Filters.Add(new AggregateExceptionFilterAttribute());
+    config.Filters.Add(new EntityNotFoundExceptionFilterAttribute());
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -25,3 +30,13 @@ if (app.Environment.IsProduction())
 app.MapControllers();
 
 app.Run();
+
+// Return Problem
+// Testat controllere
+// Pagination
+// Authentication and Authorizationr + API Key authentication.;
+// Caching
+// Docker
+// Replica Set for DBs(Idk if caching also, but we'll see
+// Kubernetes
+// Frontend

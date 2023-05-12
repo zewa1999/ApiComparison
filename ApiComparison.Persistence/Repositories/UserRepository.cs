@@ -21,27 +21,27 @@ public class UserRepository : IBaseRepository<User>, IUserRepository
     }
 
     // i still need to think if i will use this or not
-    public async Task<Account?> GetUserAccount(Guid? entityId, CancellationToken cancellationToken)
+    public async Task<Account> GetUserAccountAsync(Guid? entityId, CancellationToken cancellationToken)
     {
         var user = await _dbContext.Users
             .Include(u => u.Account)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == entityId, cancellationToken);
 
-        return user.Account;
+        return user!.Account;
     }
 
-    public async Task<Address?> GetUserAddress(Guid? entityId, CancellationToken cancellationToken)
+    public async Task<Address> GetUserAddressAsync(Guid? entityId, CancellationToken cancellationToken)
     {
         var user = await _dbContext.Users
-            .Include(u => u.Account)
+            .Include(u => u.Address)
             .AsNoTracking()
             .FirstOrDefaultAsync(x => x.Id == entityId, cancellationToken);
 
         return user!.Address;
     }
 
-    public async Task<IEnumerable<Dish>> GetUserDishes(Guid? entityId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Dish>> GetUserDishesAsync(Guid? entityId, CancellationToken cancellationToken)
     {
         var user = await _dbContext.Users
             .Include(u => u.Dishes)
@@ -60,19 +60,37 @@ public class UserRepository : IBaseRepository<User>, IUserRepository
 
     public async Task<User> InsertAsync(User entity, CancellationToken cancellationToken)
     {
-        await _dbContext.Users
-            .AddAsync(entity, cancellationToken);
+        User dbEntity = null!;
+        using var transaction = _dbContext.Database.BeginTransaction();
+        try
+        {
+            await _dbContext.Accounts.AddAsync(entity.Account);
+            await _dbContext.Addresses.AddAsync(entity.Address);
 
-        await _dbContext.SaveChangesAsync(cancellationToken);
+            var userEntry = await _dbContext.Users
+                .AddAsync(entity, cancellationToken);
+            dbEntity = userEntry.Entity;
 
-        return entity;
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
+            await transaction.CommitAsync(cancellationToken);
+        }
+       catch(Exception ex)
+        {
+            // logging aici si throw de exceptie
+        }
+
+        return dbEntity;
     }
 
-    public async Task UpdateAsync(User incoming, CancellationToken cancellationToken)
+    public async Task UpdateAsync(User entity, CancellationToken cancellationToken)
     {
-        if (await _dbContext.Users.FindAsync(incoming.Id, cancellationToken) is User found)
+        _dbContext.Attach(entity.Account);
+        _dbContext.Attach(entity.Address);
+
+        if (await _dbContext.Users.FindAsync(entity.Id, cancellationToken) is User found)
         {
-            _dbContext.Entry(found).CurrentValues.SetValues(incoming);
+            _dbContext.Entry(found).CurrentValues.SetValues(entity);
         }
 
         await _dbContext.SaveChangesAsync(cancellationToken);

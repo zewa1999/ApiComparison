@@ -1,5 +1,4 @@
-﻿using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
+﻿using ApiComparison.Contracts.BaseDtos;
 using ApiComparison.Domain.Entities;
 
 namespace ApiComparison.Mapping.Base;

@@ -1,7 +1,4 @@
-﻿using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
-using ApiComparison.Domain.Entities;
-using ApiComparison.Mapping.Base;
+﻿using ApiComparison.Mapping.Base;
 using ApiComparison.Mapping.Mappers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,11 +8,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddMappingLayer(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddScoped<IMapper<Account, AccountRequestDto, AccountResponseDto>, AccountMapper>();
-        serviceCollection.AddScoped<IMapper<User, UserRequestDto, UserResponseDto>, AddressUserMapper>();
-        serviceCollection.AddScoped<IMapper<Address, AddressRequestDto, AddressResponseDto>, AddressUserMapper>();
-        serviceCollection.AddScoped<IMapper<Dish, DishRequestDto, DishResponseDto>, DishIngredientMapper>();
-        serviceCollection.AddScoped<IMapper<Ingredient, IngredientRequestDto, IngredientResponseDto>, DishIngredientMapper>();
+        serviceCollection.AddScoped<IAccountMapper, AccountMapper>();
+        serviceCollection.AddScoped<IUserMapper, UserMapper>();
+        serviceCollection.AddScoped<IAddressMapper, AddressMapper>();
+        serviceCollection.AddScoped<IDishMapper, DishMapper>();
+        serviceCollection.AddScoped<IIngredientMapper, IngredientMapper>();
 
         return serviceCollection;
     }

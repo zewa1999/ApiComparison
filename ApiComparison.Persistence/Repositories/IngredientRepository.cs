@@ -20,7 +20,7 @@ public class IngredientRepository : IBaseRepository<Ingredient>, IIngredientRepo
             .FirstOrDefaultAsync(x => x.Id == entityId, cancellationToken);
     }
 
-    public async Task<IEnumerable<Dish>> GetIngredientDishes(Guid? entityId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Dish>> GetIngredientDishesAsync(Guid? entityId, CancellationToken cancellationToken)
     {
         var ingredient = await _dbContext.Ingredients
             .Include(d => d.Dishes)
@@ -39,12 +39,12 @@ public class IngredientRepository : IBaseRepository<Ingredient>, IIngredientRepo
 
     public async Task<Ingredient> InsertAsync(Ingredient entity, CancellationToken cancellationToken)
     {
-        await _dbContext.Ingredients
+        var dbEntry = await _dbContext.Ingredients
             .AddAsync(entity, cancellationToken);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return entity;
+        return dbEntry.Entity;
     }
 
     public async Task UpdateAsync(Ingredient incoming, CancellationToken cancellationToken)

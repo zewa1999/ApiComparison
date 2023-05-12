@@ -20,7 +20,7 @@ public class DishRepository : IBaseRepository<Dish>, IDishRepository
             .FirstOrDefaultAsync(x => x.Id == entityId, cancellationToken);
     }
 
-    public async Task<IEnumerable<Ingredient>> GetDishIngredients(Guid? entityId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Ingredient>> GetDishIngredientsAsync(Guid? entityId, CancellationToken cancellationToken)
     {
         var dish = await _dbContext.Dishes
             .Include(d => d.Ingredients)
@@ -39,19 +39,29 @@ public class DishRepository : IBaseRepository<Dish>, IDishRepository
 
     public async Task<Dish> InsertAsync(Dish entity, CancellationToken cancellationToken)
     {
-        await _dbContext.Dishes
+        foreach (var ingredient in entity.Ingredients)
+        {
+            _dbContext.Attach(ingredient);
+        }
+
+        var dbEntry = await _dbContext.Dishes
             .AddAsync(entity, cancellationToken);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return entity;
+        return dbEntry.Entity;
     }
 
-    public async Task UpdateAsync(Dish incoming, CancellationToken cancellationToken)
+    public async Task UpdateAsync(Dish entity, CancellationToken cancellationToken)
     {
-        if (await _dbContext.Dishes.FindAsync(incoming.Id, cancellationToken) is Dish found)
+        foreach (var ingredient in entity.Ingredients)
         {
-            _dbContext.Entry(found).CurrentValues.SetValues(incoming);
+            _dbContext.Attach(ingredient);
+        }
+
+        if (await _dbContext.Dishes.FindAsync(entity.Id, cancellationToken) is Dish found)
+        {
+            _dbContext.Entry(found).CurrentValues.SetValues(entity);
         }
 
         await _dbContext.SaveChangesAsync(cancellationToken);

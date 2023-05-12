@@ -29,12 +29,12 @@ public class AddressRepository : IBaseRepository<Address>, IAddressRepository
 
     public async Task<Address> InsertAsync(Address entity, CancellationToken cancellationToken)
     {
-        await _dbContext.Addresses
+        var dbEntry = await _dbContext.Addresses
             .AddAsync(entity, cancellationToken);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return entity;
+        return dbEntry.Entity;
     }
 
     public async Task UpdateAsync(Address incoming, CancellationToken cancellationToken)

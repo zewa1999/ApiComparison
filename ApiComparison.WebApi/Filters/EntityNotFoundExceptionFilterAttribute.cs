@@ -1,4 +1,4 @@
-﻿using ApiComparison.Domain.Exceptions;
+﻿using ApiComparison.EfCore.Persistence.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 

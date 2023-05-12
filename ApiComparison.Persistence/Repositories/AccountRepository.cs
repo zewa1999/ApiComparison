@@ -29,12 +29,12 @@ public class AccountRepository : IBaseRepository<Account>, IAccountRepository
 
     public async Task<Account> InsertAsync(Account entity, CancellationToken cancellationToken)
     {
-        await _dbContext.Accounts
+        var dbEntry = await _dbContext.Accounts
             .AddAsync(entity, cancellationToken);
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return entity;
+        return dbEntry.Entity;
     }
 
     public async Task UpdateAsync(Account incoming, CancellationToken cancellationToken)

@@ -4,7 +4,9 @@ namespace ApiComparison.Domain.Interfaces.Repositories;
 
 public interface IUserRepository : IBaseRepository<User>
 {
-    public Task<Address?> GetUserAddress(Guid? entityId, CancellationToken cancellationToken);
+    public Task<Address> GetUserAddressAsync(Guid? entityId, CancellationToken cancellationToken);
 
-    public Task<IEnumerable<Dish>> GetUserDishes(Guid? entityId, CancellationToken cancellationToken);
+    public Task<Account> GetUserAccountAsync(Guid? entityId, CancellationToken cancellationToken);
+
+    public Task<IEnumerable<Dish>> GetUserDishesAsync(Guid? entityId, CancellationToken cancellationToken);
 }
