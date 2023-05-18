@@ -1,9 +1,9 @@
 ﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.Domain.Entities;
 using ApiComparison.EfCore.Persistence.Exceptions;
-using ApiComparison.Domain.Interfaces.Repositories;
 using ApiComparison.Validation.Extensions;
 using FluentValidation;
+using ApiComparison.Domain.Repositories;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;
 
@@ -30,7 +30,7 @@ public class DishService : IBaseService<Dish>, IDishService
         return entity;
     }
 
-    public async Task<IEnumerable<Ingredient>> GetIngredientsOfDishes(Guid? entityId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Ingredient>> GetIngredientsOfDish(Guid? entityId, CancellationToken cancellationToken)
     {
         var entity = await _repository.GetByIdAsync(entityId!, cancellationToken);
 

@@ -1,5 +1,5 @@
 ﻿using ApiComparison.Domain.Entities;
-using ApiComparison.Domain.Interfaces.Repositories;
+using ApiComparison.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;

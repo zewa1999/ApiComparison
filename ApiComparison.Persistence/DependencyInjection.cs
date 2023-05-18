@@ -1,4 +1,4 @@
-﻿using ApiComparison.Domain.Interfaces.Repositories;
+﻿using ApiComparison.Domain.Repositories;
 using ApiComparison.EfCore.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

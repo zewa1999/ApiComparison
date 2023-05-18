@@ -1,11 +1,8 @@
 ﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.Domain.Entities;
 using ApiComparison.GrpcAPI;
-using ApiComparison.Infrastructure.BusinessLogicServices;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using Ingredient = ApiComparison.GrpcAPI.Ingredient;
 
 namespace ApiComparison.GrpcApi.Services;
@@ -33,19 +30,11 @@ public class IngredientService : Ingredient.IngredientBase
 
         var response = new IngredientResponseDto
         {
-            Id = ingredient.Id.ToString(),
+            Id = request,
             Name = ingredient.Name,
             Quantity = ingredient.Quantity,
             UnitOfMeasure = ingredient.UnitOfMeasure
         };
-
-        response.Dishes.AddRange(ingredient.DishIngredients.Select((Domain.Entities.Dish dish) => new DishResponseDto
-        {
-            Description = dish.Description,
-            Id = dish.Id.ToString(),
-            Name = dish.Name,
-            PhotoUrl = dish.PhotoUrl,
-        }));
 
         return response;
     }
@@ -54,61 +43,72 @@ public class IngredientService : Ingredient.IngredientBase
     {
         var ingredients = await _ingredientService.GetAllAsync(context.CancellationToken);
 
-        return new IngredientListResponseDto
+        var response = new IngredientListResponseDto();
+
+        foreach (var ingredient in ingredients)
         {
-            Items = { ingredients.Select((Domain.Entities.Ingredient ingredient) => new IngredientResponseDto
+            Id ingredientId = new Id();
+            ingredientId.Id_ = ingredient.Id.ToString();
+
+            response.Items.Add(new IngredientResponseDto
             {
-                Id = ingredient.Id.ToString(),
+                Id = ingredientId,
                 Name = ingredient.Name,
                 Quantity = ingredient.Quantity,
-                UnitOfMeasure = ingredient.UnitOfMeasure,
-                Dishes =
-                { ingredient.DishIngredients.Select((Domain.Entities.Dish dish) => new DishResponseDto
-                {
-                     Description = dish.Description,
-                     Id = dish.Id.ToString(),
-                     Name = dish.Name,
-                     PhotoUrl = dish.PhotoUrl,
-                })}
-            })
-            }
-        };
+                UnitOfMeasure = ingredient.UnitOfMeasure
+            });
+        }
+
+        return response;
+    }
+
+    public override async Task<DishListResponseDto> GetDishesOfIngredient(Id id, ServerCallContext context)
+    {
+        Guid.TryParse(id.Id_.ToString(), out var ingredientId);
+        var dishes = await _ingredientService.GetDishesOfIngredient(ingredientId, context.CancellationToken);
+
+        var response = new DishListResponseDto();
+
+        foreach (var dish in dishes)
+        {
+            Id dishId = new Id();
+            id.Id_ = dish.Id.ToString();
+
+            response.Items.Add(new DishResponseDto
+            {
+                Id = dishId,
+                Name = dish.Name,
+                Description = dish.Description,
+                PhotoUrl = dish.PhotoUrl
+            });
+        }
+
+        return response;
     }
 
     public override async Task<IngredientResponseDto> PostIngredient(IngredientRequestDto request, ServerCallContext context)
     {
-        // ugly linq thing
-        var ingredientDishes = await Task.WhenAll(request.DishIds.Select(async x => await _dishService.GetByIdAsync(Guid.Parse(x), context.CancellationToken)));
-
         var ingredient = await _ingredientService.InsertAsync(new Domain.Entities.Ingredient
         {
             Name = request.Name,
             Quantity = request.Quantity,
-            UnitOfMeasure = request.UnitOfMeasure,
-            DishIngredients = ingredientDishes
+            UnitOfMeasure = request.UnitOfMeasure
         }, context.CancellationToken);
+
+        Id ingredientId = new Id();
+        ingredientId.Id_ = ingredient.Id.ToString();
 
         return new IngredientResponseDto
         {
-            Id = ingredient.Id.ToString(),
+            Id = ingredientId,
             Name = ingredient.Name,
             Quantity = ingredient.Quantity,
-            UnitOfMeasure = ingredient.UnitOfMeasure,
-            Dishes =
-                { ingredient.DishIngredients.Select((Domain.Entities.Dish dish) => new DishResponseDto
-                {
-                     Description = dish.Description,
-                     Id = dish.Id.ToString(),
-                     Name = dish.Name,
-                     PhotoUrl = dish.PhotoUrl,
-                })}
+            UnitOfMeasure = ingredient.UnitOfMeasure
         };
     }
 
     public override async Task<Empty> PutIngredient(IngredientPutRequestDto request, ServerCallContext context)
     {
-        var ingredientDishes = await Task.WhenAll(request.DishIds.Select(async x => await _dishService.GetByIdAsync(Guid.Parse(x), context.CancellationToken)));
-
         if (!string.IsNullOrEmpty(request.Id.Id_))
         {
             Guid.TryParse(request.Id.Id_, out var ingredientId);
@@ -116,8 +116,7 @@ public class IngredientService : Ingredient.IngredientBase
             {
                 Name = request.Name,
                 Quantity = request.Quantity,
-                UnitOfMeasure = request.UnitOfMeasure,
-                DishIngredients = ingredientDishes
+                UnitOfMeasure = request.UnitOfMeasure
             }, context.CancellationToken);
         }
 

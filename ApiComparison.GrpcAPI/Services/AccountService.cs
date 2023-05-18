@@ -16,16 +16,19 @@ public class AccountService : Account.AccountBase
 
     public override async Task<AccountResponseDto> GetAccount(Id request, ServerCallContext context)
     {
-        ApiComparison.Domain.Entities.Account account = null!;
+        Domain.Entities.Account account = null!;
+        Id id = new Id();
         if (!string.IsNullOrEmpty(request.Id_))
         {
             Guid.TryParse(request.Id_, out var accountId);
             account = await _accountService.GetByIdAsync(accountId, context.CancellationToken);
+            id.Id_ = account.Id.ToString();
         }
+
 
         return new AccountResponseDto()
         {
-            Id = request.Id_,
+            Id = id,
             Email = account.Email,
             Password = account.Password,
             Username = account.Username,
@@ -40,9 +43,12 @@ public class AccountService : Account.AccountBase
 
         foreach (var account in accounts)
         {
+            Id id = new Id();
+            id.Id_ = account.Id.ToString();
+
             accountListResponseDto.Items.Add(new AccountResponseDto
             {
-                Id = account.Id.ToString(),
+                Id = id,
                 Email = account.Email,
                 Password = account.Password,
                 Username = account.Username,
@@ -61,9 +67,12 @@ public class AccountService : Account.AccountBase
             Username = request.Username
         }, context.CancellationToken);
 
+        Id id = new Id();
+        id.Id_ = account.Id.ToString();
+
         return new AccountResponseDto()
         {
-            Id = account.Id.ToString(),
+            Id = id,
             Email = account.Email,
             Password = account.Password,
             Username = account.Username,

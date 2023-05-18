@@ -1,6 +1,17 @@
 using ApiComparison.WebApi;
 using ApiComparison.WebApi.Filters;
 
+
+// Return Problem
+// Testat controllere
+// Pagination
+// Authentication and Authorizationr + API Key authentication.;
+// Caching
+// Docker
+// Replica Set for DBs(Idk if caching also, but we'll see
+// Kubernetes
+// Frontend
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(config =>
@@ -30,13 +41,3 @@ if (app.Environment.IsProduction())
 app.MapControllers();
 
 app.Run();
-
-// Return Problem
-// Testat controllere
-// Pagination
-// Authentication and Authorizationr + API Key authentication.;
-// Caching
-// Docker
-// Replica Set for DBs(Idk if caching also, but we'll see
-// Kubernetes
-// Frontend

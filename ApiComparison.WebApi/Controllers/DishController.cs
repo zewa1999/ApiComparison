@@ -45,7 +45,7 @@ public class DishController : ControllerBase
     [Route("{id:guid}/ingredients")]
     public async Task<IActionResult> GetDishIngredientsAsync(Guid id, CancellationToken cancellationToken)
     {
-        var ingredients = await _service.GetIngredientsOfDishes(id, cancellationToken);
+        var ingredients = await _service.GetIngredientsOfDish(id, cancellationToken);
 
         return Ok(ingredients.Select(_ingredientMapper.EntityToResponse));
     }

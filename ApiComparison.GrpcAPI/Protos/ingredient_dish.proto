@@ -10,6 +10,7 @@ package apicomparison;
 service Ingredient {
   rpc GetIngredient (Id) returns (IngredientResponseDto);
   rpc GetIngredients (IngredientRequestDto) returns (IngredientListResponseDto);
+  rpc GetDishesOfIngredient (Id) returns (DishListResponseDto);
   rpc PostIngredient (IngredientRequestDto) returns (IngredientResponseDto);
   rpc PutIngredient (IngredientPutRequestDto) returns (google.protobuf.Empty);
   rpc DeleteIngredient (Id) returns (google.protobuf.Empty);
@@ -31,11 +32,10 @@ message IngredientPutRequestDto {
 }
 
 message IngredientResponseDto {
-  string id = 1;
+  Id id = 1;
   string name = 2;
   double quantity = 3;
   string unit_of_measure = 4;
-  repeated DishResponseDto dishes = 5;
 }
 
 message IngredientListResponseDto {
@@ -46,6 +46,7 @@ message IngredientListResponseDto {
 service Dish {
   rpc GetDish (Id) returns (DishResponseDto);
   rpc GetDishes (DishRequestDto) returns (DishListResponseDto);
+  rpc GetDishIngredients (Id) returns (IngredientListResponseDto);
   rpc PostDish (DishRequestDto) returns (DishResponseDto);
   rpc PutDish (DishPutRequestDto) returns (google.protobuf.Empty);
   rpc DeleteDish (Id) returns (google.protobuf.Empty);
@@ -68,11 +69,10 @@ message DishPutRequestDto {
 }
 
 message DishResponseDto {
-  string id = 1;
+  Id id = 1;
   string name = 2;
   string description = 3;
   string photo_url = 4;
-  repeated IngredientResponseDto ingredients = 5;
 }
 
 message DishListResponseDto {

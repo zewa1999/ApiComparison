@@ -1,9 +1,9 @@
 ﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.Domain.Entities;
 using ApiComparison.EfCore.Persistence.Exceptions;
-using ApiComparison.Domain.Interfaces.Repositories;
 using ApiComparison.Validation.Extensions;
 using FluentValidation;
+using ApiComparison.Domain.Repositories;
 
 namespace ApiComparison.Infrastructure.BusinessLogicServices;
 

@@ -1,6 +1,6 @@
+using ApiComparison.GrpcApi.Interceptors;
 using ApiComparison.GrpcApi.Services;
 using ApiComparison.Infrastructure;
-using Grpc.Net.Client;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +9,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 // Add services to the container.
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(options =>
+{
+    {
+        options.Interceptors.Add<ServerLoggerInterceptor>();
+        options.EnableDetailedErrors = true;
+    }
+});
 
 var app = builder.Build();
 

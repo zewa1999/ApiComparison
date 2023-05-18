@@ -15,8 +15,5 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ApComparison.Domain\ApiComparison.Domain.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="ApiComparison.EfCore.Persistence\" />
-	</ItemGroup>
 
 </Project>

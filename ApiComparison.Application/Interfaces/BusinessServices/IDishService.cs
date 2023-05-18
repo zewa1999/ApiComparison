@@ -4,5 +4,5 @@ namespace ApiComparison.Application.Interfaces.BusinessServices;
 
 public interface IDishService : IBaseService<Dish>
 {
-    public Task<IEnumerable<Ingredient>> GetIngredientsOfDishes(Guid? entityId, CancellationToken cancellationToken);
+    public Task<IEnumerable<Ingredient>> GetIngredientsOfDish(Guid? entityId, CancellationToken cancellationToken);
 }
