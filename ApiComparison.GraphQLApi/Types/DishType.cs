@@ -1,5 +1,8 @@
 ﻿using ApiComparison.Application.Interfaces.BusinessServices;
 using ApiComparison.Domain.Entities;
+using ApiComparison.EfCore.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace ApiComparison.GraphQLApi.Types;
 
@@ -21,22 +24,24 @@ public class DishType : ObjectType<Dish>
         descriptor.Field(d => d.PhotoUrl)
             .Description("The URL of the dish's photo.");
 
-        descriptor.Field(d => d.DishIngredients)
+        descriptor.Field(d => d.Ingredients)
             .Description("The list of ingredients used in the dish.")
             .Type<ListType<IngredientType>>()
-            .ResolveWith<DishResolvers>(r => r.GetIngredients(default!, default!, CancellationToken.None));
+            .ResolveWith<DishResolvers>(r => r.GetIngredients(default!, default!));
     }
 
     private class DishResolvers
     {
-        public async Task<IEnumerable<Ingredient>> GetIngredients([Parent] Dish dish, [ScopedService] IIngredientService ingredientService, CancellationToken cancellationToken)
+        [UseDbContext(typeof(ApiComparisonDbContext))]
+        public IEnumerable<Ingredient> GetIngredients([Parent] Dish dish, [ScopedService] ApiComparisonDbContext context)
         {
-            var ingredients = await ingredientService.GetAllAsync(cancellationToken);
+            var ingredients = context.Dishes
+                .Include(dish => dish.Ingredients)
+                .Where(dish => dish.Id == dish.Id)
+                .FirstOrDefault()!
+                .Ingredients;
+
             ArgumentNullException.ThrowIfNull(ingredients);
-            if (ingredients.Any())
-            {
-                throw new InvalidOperationException("The dish with id ");
-            }
 
             return ingredients;
         }

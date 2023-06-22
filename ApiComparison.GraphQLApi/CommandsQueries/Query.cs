@@ -1,61 +1,55 @@
-﻿using ApiComparison.Application.Interfaces.BusinessServices;
-using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
-using ApiComparison.Domain.Entities;
-using ApiComparison.Mapping.Base;
+﻿using ApiComparison.Domain.Entities;
+using ApiComparison.EfCore.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiComparison.GraphQLApi.CommandsQueries;
 
 public class Query
 {
+    [UseDbContext(typeof(ApiComparisonDbContext))]
     [UseFiltering]
     [UseSorting]
-    public async Task<IEnumerable<AccountResponseDto>> GetAccount(
-        [ScopedService] IAccountService accountService,
-        [ScopedService] IMapper<Account, AccountRequestDto, AccountResponseDto> mapper
-        )
+    public IQueryable<Account> GetAccount(
+        [ScopedService] ApiComparisonDbContext context)
     {
-        var accounts = await accountService.GetAllAsync(CancellationToken.None);
-        return accounts.Select(mapper.EntityToResponse);
+        return context.Accounts;
     }
 
+    [UseDbContext(typeof(ApiComparisonDbContext))]
     [UseFiltering]
     [UseSorting]
-    public async Task<IEnumerable<AddressResponseDto>> GetAddresses(
-    [ScopedService] IAddressService addressService,
-    [ScopedService] IMapper<Address, AddressRequestDto, AddressResponseDto> mapper)
+    public IQueryable<Address> GetAddresses(
+         [ScopedService] ApiComparisonDbContext context)
     {
-        var addresses = await addressService.GetAllAsync(CancellationToken.None);
-        return addresses.Select(mapper.EntityToResponse);
+        return context.Addresses;
     }
 
+    [UseDbContext(typeof(ApiComparisonDbContext))]
     [UseFiltering]
     [UseSorting]
-    public async Task<IEnumerable<DishResponseDto>> GetDishes(
-    [ScopedService] IDishService dishService,
-    [ScopedService] IMapper<Dish, DishRequestDto, DishResponseDto> mapper)
+    public IQueryable<Dish> GetDishes(
+    [ScopedService] ApiComparisonDbContext context)
     {
-        var dishes = await dishService.GetAllAsync(CancellationToken.None);
-        return dishes.Select(mapper.EntityToResponse);
+        var dishes = context.Dishes;
+
+        return dishes;
     }
 
+    [UseDbContext(typeof(ApiComparisonDbContext))]
     [UseFiltering]
     [UseSorting]
-    public async Task<IEnumerable<IngredientResponseDto>> GetIngredients(
-    [ScopedService] IIngredientService ingredientService,
-    [ScopedService] IMapper<Ingredient, IngredientRequestDto, IngredientResponseDto> mapper)
+    public IQueryable<Ingredient> GetIngredients(
+    [ScopedService] ApiComparisonDbContext context)
     {
-        var ingredients = await ingredientService.GetAllAsync(CancellationToken.None);
-        return ingredients.Select(mapper.EntityToResponse);
+        return context.Ingredients;
     }
 
+    [UseDbContext(typeof(ApiComparisonDbContext))]
     [UseFiltering]
     [UseSorting]
-    public async Task<IEnumerable<UserResponseDto>> GetUsers(
-    [ScopedService] IUserService userService,
-    [ScopedService] IMapper<User, UserRequestDto, UserResponseDto> mapper)
+    public IEnumerable<User> GetUsers(
+    [ScopedService] ApiComparisonDbContext context)
     {
-        var users = await userService.GetAllAsync(CancellationToken.None);
-        return users.Select(mapper.EntityToResponse);
+        return context.Users;
     }
 }

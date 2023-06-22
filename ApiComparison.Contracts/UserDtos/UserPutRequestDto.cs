@@ -2,7 +2,7 @@
 
 namespace ApiComparison.Contracts.UserDtos;
 
-public record UserRequestDto : BaseRequestDto
+public record UserPutRequestDto : BaseRequestDto
 {
     public required string FirstName { get; set; }
     public required string LastName { get; set; }

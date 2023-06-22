@@ -1,87 +1,91 @@
-﻿using ApiComparison.Application.Interfaces.BusinessServices;
-using ApiComparison.Contracts.RequestDto;
-using ApiComparison.Contracts.ResponseDto;
-using ApiComparison.Domain.Entities;
+﻿using ApiComparison.Domain.Entities;
+using ApiComparison.EfCore.Persistence;
 using ApiComparison.GraphQLApi.Subscriptions;
-using ApiComparison.Mapping.Base;
+using ApiComparison.Validation.Extensions;
+using FluentValidation;
 using HotChocolate.Subscriptions;
 
 namespace ApiComparison.GraphQLApi.CommandsQueries;
 
 public class Mutation
 {
-    public async Task<AccountResponseDto> AddPlatformAsync(AccountRequestDto requestDto,
-        [ScopedService] IAccountService service,
-        [ScopedService] IMapper<Account, AccountRequestDto, AccountResponseDto> mapper,
+    [UseDbContext(typeof(ApiComparisonDbContext))]
+    public async Task<Account> AddAccountAsync(Account account,
+        [ScopedService] ApiComparisonDbContext context,
+        [ScopedService] IValidator<Account> validator,
         [Service] ITopicEventSender eventSender,
         CancellationToken cancellationToken)
     {
-        var account = mapper.RequestToEntity(requestDto);
+        validator.ValidateAndThrowAggregateException(account);
 
-        var dbAccount = await service.InsertAsync(account, cancellationToken);
+        var dbAccount = await context.Accounts.AddAsync(account, cancellationToken);
 
         await eventSender.SendAsync(nameof(Subscription.OnAccountAdded), account, cancellationToken);
 
-        return mapper.EntityToResponse(dbAccount);
+        return dbAccount.Entity;
     }
 
-    public async Task<AddressResponseDto> AddAddressAsync(AddressRequestDto requestDto,
-        [ScopedService] IAddressService addressService,
-        [ScopedService] IMapper<Address, AddressRequestDto, AddressResponseDto> mapper,
+    [UseDbContext(typeof(ApiComparisonDbContext))]
+    public async Task<Address> AddAddressAsync(Address address,
+        [ScopedService] ApiComparisonDbContext context,
+        [ScopedService] IValidator<Address> validator,
         [Service] ITopicEventSender eventSender,
         CancellationToken cancellationToken)
     {
-        var address = mapper.RequestToEntity(requestDto);
+        validator.ValidateAndThrowAggregateException(address);
 
-        var dbAddress = await addressService.InsertAsync(address, cancellationToken);
+        var dbAddress = await context.Addresses.AddAsync(address, cancellationToken);
 
         await eventSender.SendAsync(nameof(Subscription.OnAddressAdded), address, cancellationToken);
 
-        return mapper.EntityToResponse(dbAddress);
+        return dbAddress.Entity;
     }
 
-    public async Task<DishResponseDto> AddDishAsync(DishRequestDto requestDto,
-        [ScopedService] IDishService dishService,
-        [ScopedService] IMapper<Dish, DishRequestDto, DishResponseDto> mapper,
+    [UseDbContext(typeof(ApiComparisonDbContext))]
+    public async Task<Dish> AddDishAsync(Dish dish,
+        [ScopedService] ApiComparisonDbContext context,
+        [ScopedService] IValidator<Dish> validator,
         [Service] ITopicEventSender eventSender,
         CancellationToken cancellationToken)
     {
-        var dish = mapper.RequestToEntity(requestDto);
+        validator.ValidateAndThrowAggregateException(dish);
 
-        var dbDish = await dishService.InsertAsync(dish, cancellationToken);
+        var dbDish = await context.Dishes.AddAsync(dish, cancellationToken);
 
         await eventSender.SendAsync(nameof(Subscription.OnDishAdded), dish, cancellationToken);
 
-        return mapper.EntityToResponse(dbDish);
+        return dbDish.Entity;
     }
 
-    public async Task<IngredientResponseDto> AddIngredientAsync(IngredientRequestDto requestDto,
-        [ScopedService] IIngredientService ingredientService,
-        [ScopedService] IMapper<Ingredient, IngredientRequestDto, IngredientResponseDto> mapper,
+    [UseDbContext(typeof(ApiComparisonDbContext))]
+    public async Task<Ingredient> AddIngredientAsync(Ingredient ingredient,
+        [ScopedService] ApiComparisonDbContext context,
+        [ScopedService] IValidator<Ingredient> validator,
         [Service] ITopicEventSender eventSender,
         CancellationToken cancellationToken)
     {
-        var ingredient = mapper.RequestToEntity(requestDto);
 
-        var dbIngredient = await ingredientService.InsertAsync(ingredient, cancellationToken);
+        validator.ValidateAndThrowAggregateException(ingredient);
+
+        var dbIngredient = await context.Ingredients.AddAsync(ingredient, cancellationToken);
 
         await eventSender.SendAsync(nameof(Subscription.OnIngredientAdded), ingredient, cancellationToken);
 
-        return mapper.EntityToResponse(dbIngredient);
+        return dbIngredient.Entity;
     }
 
-    public async Task<UserResponseDto> AddUserAsync(UserRequestDto requestDto,
-        [ScopedService] IUserService userService,
-        [ScopedService] IMapper<User, UserRequestDto, UserResponseDto> mapper,
+    [UseDbContext(typeof(ApiComparisonDbContext))]
+    public async Task<User> AddUserAsync(User user,
+        [ScopedService] ApiComparisonDbContext context,
+        [ScopedService] IValidator<User> validator,
         [Service] ITopicEventSender eventSender,
         CancellationToken cancellationToken)
     {
-        var user = mapper.RequestToEntity(requestDto);
-
-        var dbUser = await userService.InsertAsync(user, cancellationToken);
+        validator.ValidateAndThrowAggregateException(user);
+        var dbUser = await context.AddAsync(user, cancellationToken);
 
         await eventSender.SendAsync(nameof(Subscription.OnUserAdded), user, cancellationToken);
 
-        return mapper.EntityToResponse(dbUser);
+        return dbUser.Entity;
     }
 }

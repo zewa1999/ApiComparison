@@ -14,7 +14,7 @@ public static class DependencyInjection
         {
             options.UseNpgsql(configuration.GetConnectionString("Pgsql Connection String"));
         });
-        serviceCollection.AddTransient<IAccountRepository, AccountRepository>();
+        serviceCollection.AddScoped<IAccountRepository, AccountRepository>();
         serviceCollection.AddScoped<IAddressRepository, AddressRepository>();
         serviceCollection.AddScoped<IDishRepository, DishRepository>();
         serviceCollection.AddScoped<IIngredientRepository, IngredientRepository>();

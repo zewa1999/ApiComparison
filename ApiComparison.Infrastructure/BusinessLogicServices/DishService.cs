@@ -64,7 +64,7 @@ public class DishService : IBaseService<Dish>, IDishService
             throw new EntityNotFoundException(typeof(Dish));
         }
 
-        entity.Id = dbEntity.Id;
+        entity.Id = entityId;
         await _repository.UpdateAsync(entity, cancellationToken);
     }
 

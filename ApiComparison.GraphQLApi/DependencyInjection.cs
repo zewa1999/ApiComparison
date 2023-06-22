@@ -1,7 +1,10 @@
-﻿using ApiComparison.GraphQLApi.CommandsQueries;
+﻿using ApiComparison.EfCore.Persistence;
+using ApiComparison.GraphQLApi.CommandsQueries;
 using ApiComparison.GraphQLApi.Subscriptions;
 using ApiComparison.GraphQLApi.Types;
 using GraphQL.Server.Ui.Voyager;
+using Microsoft.EntityFrameworkCore;
+using ApiComparison.Validation;
 
 namespace ApiComparison.GraphQLApi;
 
@@ -34,6 +37,18 @@ public static class DependencyInjection
             .AddFiltering()
             .AddSorting()
             .AddInMemorySubscriptions();
+        return services;
+    }
+
+    public static IServiceCollection AddTransientDependencies(this IServiceCollection services, IConfiguration configuration)
+    {
+        var connectionString = configuration.GetConnectionString("Pgsql Connection String");
+        services.AddDbContextFactory<ApiComparisonDbContext>(options =>
+        {
+            options.UseNpgsql(connectionString);
+        });
+
+        services.AddValidationLayer();
 
         return services;
     }

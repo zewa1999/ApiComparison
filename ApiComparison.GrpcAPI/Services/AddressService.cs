@@ -10,12 +10,10 @@ namespace ApiComparison.GrpcApi.Services;
 public class AddressService : Address.AddressBase
 {
     private readonly IAddressService _addressService;
-    private readonly IUserService _userService;
 
     public AddressService(IAddressService addressService, IUserService userService)
     {
         _addressService = addressService;
-        _userService = userService;
     }
 
     public override async Task<AddressResponseDto> GetAddress(Id id, ServerCallContext context)

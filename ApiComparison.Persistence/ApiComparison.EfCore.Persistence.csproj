@@ -16,4 +16,8 @@
 		<ProjectReference Include="..\ApComparison.Domain\ApiComparison.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="ApiComparison.EFCore.Persistence.Tests" />
+	</ItemGroup>
+
 </Project>

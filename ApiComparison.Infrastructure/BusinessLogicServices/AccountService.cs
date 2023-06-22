@@ -52,7 +52,7 @@ public class AccountService : IBaseService<Account>, IAccountService
             throw new EntityNotFoundException(typeof(Account));
         }
 
-        entity.Id = dbEntity.Id;
+        entity.Id = entityId;
         await _repository.UpdateAsync(entity, cancellationToken);
     }
 

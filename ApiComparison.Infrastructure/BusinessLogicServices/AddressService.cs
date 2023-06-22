@@ -52,7 +52,7 @@ public class AddressService : IBaseService<Address>, IAddressService
             throw new EntityNotFoundException(typeof(Address));
         }
 
-        entity.Id = dbEntity.Id;
+        entity.Id = entityId;
         await _repository.UpdateAsync(entity, cancellationToken);
     }
 

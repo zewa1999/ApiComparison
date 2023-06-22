@@ -100,7 +100,7 @@ public class UserService : IBaseService<User>, IUserService
             throw new EntityNotFoundException(typeof(User));
         }
 
-        entity.Id = dbEntity.Id;
+        entity.Id = entityId;
         await _repository.UpdateAsync(entity, cancellationToken);
     }
 

@@ -1,5 +1,5 @@
-﻿using ApiComparison.Application.Interfaces.BusinessServices;
-using ApiComparison.Domain.Entities;
+﻿using ApiComparison.Domain.Entities;
+using ApiComparison.EfCore.Persistence;
 
 namespace ApiComparison.GraphQLApi.Types;
 
@@ -21,21 +21,23 @@ public class IngredientType : ObjectType<Ingredient>
         descriptor.Field(i => i.UnitOfMeasure)
             .Description("The unit of measure for the ingredient.");
 
-        descriptor.Field(i => i.DishIngredients)
+        descriptor.Field(i => i.Dishes)
             .Description("The list of dishes in which the ingredient is used.")
-            .Type<ListType<DishType>>();
+            .Type<ListType<DishType>>()
+            .ResolveWith<IngredientResolvers>(i => i.GetDishes(default!, default!));
     }
 
     private class IngredientResolvers
     {
-        public async Task<IEnumerable<Dish>> GetIngredients([Parent] Ingredient ingredient, [ScopedService] IDishService dishService, CancellationToken cancellationToken)
+        [UseDbContext(typeof(ApiComparisonDbContext))]
+        public IEnumerable<Dish> GetDishes([Parent] Ingredient ingredient, [ScopedService] ApiComparisonDbContext context)
         {
-            var dishes = await dishService.GetAllAsync(cancellationToken);
+            var dishes = context.Ingredients
+                .Where(ingredient => ingredient.Id == ingredient.Id)
+                .FirstOrDefault()!
+                .Dishes;
+
             ArgumentNullException.ThrowIfNull(dishes);
-            if (dishes.Any())
-            {
-                throw new InvalidOperationException("The dish with id ");
-            }
 
             return dishes;
         }

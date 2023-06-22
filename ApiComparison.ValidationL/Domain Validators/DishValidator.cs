@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ApiComparison.Contracts.Validators;
 
-public class DishValidator : AbstractValidator<Dish>
+internal class DishValidator : AbstractValidator<Dish>
 {
     public DishValidator()
     {

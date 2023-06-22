@@ -64,7 +64,7 @@ public class IngredientService : IBaseService<Ingredient>, IIngredientService
             throw new EntityNotFoundException(typeof(Ingredient));
         }
 
-        entity.Id = dbEntity.Id;
+        entity.Id = entityId;
         await _repository.UpdateAsync(entity, cancellationToken);
     }
 

@@ -16,4 +16,8 @@
     <ProjectReference Include="..\ApiComparison.Contracts\ApiComparison.Contracts.csproj" />
   </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="ApiComparison.Mapping.Tests" />
+	</ItemGroup>
+	
 </Project>

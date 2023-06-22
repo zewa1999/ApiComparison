@@ -8,6 +8,11 @@ namespace ApiComparison.EfCore.Persistence;
 
 public class ApiComparisonDbContext : DbContext
 {
+    public ApiComparisonDbContext()
+    {
+
+    }
+
     public ApiComparisonDbContext(DbContextOptions<ApiComparisonDbContext> options)
         : base(options)
     {
@@ -38,9 +43,9 @@ public class ApiComparisonDbContext : DbContext
         base.OnModelCreating(builder);
     }
 
-    public DbSet<Account> Accounts { get; set; } = null!;
-    public DbSet<Address> Addresses { get; set; } = null!;
-    public DbSet<Dish> Dishes { get; set; } = null!;
-    public DbSet<Ingredient> Ingredients { get; set; } = null!;
-    public DbSet<User> Users { get; set; } = null!;
+    public virtual DbSet<Account> Accounts { get; set; } = null!;
+    public virtual DbSet<Address> Addresses { get; set; } = null!;
+    public virtual DbSet<Dish> Dishes { get; set; } = null!;
+    public virtual DbSet<Ingredient> Ingredients { get; set; } = null!;
+    public virtual DbSet<User> Users { get; set; } = null!;
 }

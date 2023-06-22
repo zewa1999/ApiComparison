@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;
 
-public class DishRepository : IBaseRepository<Dish>, IDishRepository
+internal class DishRepository : IBaseRepository<Dish>, IDishRepository
 {
     private readonly ApiComparisonDbContext _dbContext;
 

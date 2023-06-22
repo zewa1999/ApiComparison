@@ -4,7 +4,7 @@ using ApiComparison.Mapping.Base;
 
 namespace ApiComparison.Mapping.Mappers;
 
-public class UserMapper : IUserMapper
+internal class UserMapper : IUserMapper
 {
     public UserResponseDto EntityToResponse(User user)
     {
@@ -17,7 +17,7 @@ public class UserMapper : IUserMapper
         };
     }
 
-    public User RequestToEntity(UserRequestDto requestDto)
+    public User RequestToEntity(UserPutRequestDto requestDto)
     {
         return new User
         {
@@ -47,7 +47,5 @@ public class UserMapper : IUserMapper
                 StreetNumber = requestDto.StreetNumber,
             }
         };
-
-
     }
 }

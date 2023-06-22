@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace ApiComparison.Contracts.Validators;
 
-public class AccountValidator : AbstractValidator<Account>
+internal class AccountValidator : AbstractValidator<Account>
 {
     public AccountValidator()
     {

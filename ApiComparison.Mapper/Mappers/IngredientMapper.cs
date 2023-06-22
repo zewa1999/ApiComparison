@@ -4,7 +4,7 @@ using ApiComparison.Mapping.Base;
 
 namespace ApiComparison.Mapping.Mappers;
 
-public class IngredientMapper : IIngredientMapper
+internal class IngredientMapper : IIngredientMapper
 {
     public Ingredient RequestToEntity(IngredientRequestDto requestDto)
     {

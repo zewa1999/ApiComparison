@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ApiComparison.Contracts.Validators;
 
-public class IngredientValidator : AbstractValidator<Ingredient>
+internal class IngredientValidator : AbstractValidator<Ingredient>
 {
     public IngredientValidator()
     {

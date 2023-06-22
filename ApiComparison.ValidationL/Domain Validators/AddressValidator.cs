@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ApiComparison.Contracts.Validators;
 
-public class AddressValidator : AbstractValidator<Address>
+internal class AddressValidator : AbstractValidator<Address>
 {
     public AddressValidator()
     {

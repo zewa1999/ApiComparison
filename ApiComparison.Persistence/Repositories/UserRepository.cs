@@ -1,10 +1,11 @@
 ﻿using ApiComparison.Domain.Entities;
 using ApiComparison.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;
 
-public class UserRepository : IBaseRepository<User>, IUserRepository
+internal class UserRepository : IBaseRepository<User>, IUserRepository
 {
     private readonly ApiComparisonDbContext _dbContext;
 
@@ -75,9 +76,9 @@ public class UserRepository : IBaseRepository<User>, IUserRepository
 
             await transaction.CommitAsync(cancellationToken);
         }
-       catch(Exception ex)
+       catch
         {
-            // logging aici si throw de exceptie
+            throw;
         }
 
         return dbEntity;

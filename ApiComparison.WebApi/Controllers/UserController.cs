@@ -86,7 +86,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public virtual async Task<IActionResult> Put([Required] Guid id, UserRequestDto requestDto, CancellationToken cancellationToken)
+    public virtual async Task<IActionResult> Put([Required] Guid id, UserPutRequestDto requestDto, CancellationToken cancellationToken)
     {
         await _service.UpdateAsync(id, _mapper.RequestToEntity(requestDto), cancellationToken);
         return NoContent();

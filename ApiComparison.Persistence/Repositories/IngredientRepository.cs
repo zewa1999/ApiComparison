@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;
 
-public class IngredientRepository : IBaseRepository<Ingredient>, IIngredientRepository
+internal class IngredientRepository : IBaseRepository<Ingredient>, IIngredientRepository
 {
     private readonly ApiComparisonDbContext _dbContext;
 

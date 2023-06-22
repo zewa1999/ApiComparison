@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;
 
-public class AccountRepository : IBaseRepository<Account>, IAccountRepository
+internal class AccountRepository : IBaseRepository<Account>, IAccountRepository
 {
     private readonly ApiComparisonDbContext _dbContext;
 

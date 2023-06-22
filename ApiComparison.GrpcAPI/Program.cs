@@ -4,8 +4,9 @@ using ApiComparison.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Additional configuration is required to successfully run gRPC on macOS.
-// For instructions on how to configure Kestrel and gRPC clients on macOS, visit https://go.microsoft.com/fwlink/?linkid=2099682
+// ca sa dai drumul la grpc ui: grpcui -plaintext localhost:5019 in powershell
+
+builder.Services.AddGrpcReflection();
 
 builder.Services.AddInfrastructureLayer(builder.Configuration);
 // Add services to the container.
@@ -18,6 +19,8 @@ builder.Services.AddGrpc(options =>
 });
 
 var app = builder.Build();
+
+app.MapGrpcReflectionService();
 
 app.MapGrpcService<AccountService>();
 app.MapGrpcService<AddressService>();

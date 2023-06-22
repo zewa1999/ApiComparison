@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiComparison.EfCore.Persistence.Repositories;
 
-public class AddressRepository : IBaseRepository<Address>, IAddressRepository
+internal class AddressRepository : IBaseRepository<Address>, IAddressRepository
 {
     private readonly ApiComparisonDbContext _dbContext;
 

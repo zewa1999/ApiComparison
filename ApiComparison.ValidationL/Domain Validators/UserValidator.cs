@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ApiComparison.Contracts.Validators;
 
-public class UserValidator : AbstractValidator<User>
+internal class UserValidator : AbstractValidator<User>
 {
     public UserValidator()
     {

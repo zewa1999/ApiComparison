@@ -12,7 +12,8 @@ internal class DishMapper : IDishMapper
         {
             Name = requestDto.Name,
             Description = requestDto.Description,
-            PhotoUrl = requestDto.PhotoUrl
+            PhotoUrl = requestDto.PhotoUrl,
+            
         };
     }
 
