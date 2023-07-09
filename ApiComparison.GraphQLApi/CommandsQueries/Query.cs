@@ -1,6 +1,5 @@
 ﻿using ApiComparison.Domain.Entities;
 using ApiComparison.EfCore.Persistence;
-using Microsoft.EntityFrameworkCore;
 
 namespace ApiComparison.GraphQLApi.CommandsQueries;
 

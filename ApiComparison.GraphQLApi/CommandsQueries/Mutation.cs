@@ -1,4 +1,5 @@
-﻿using ApiComparison.Domain.Entities;
+﻿using ApiComparison.Contracts.UserDtos;
+using ApiComparison.Domain.Entities;
 using ApiComparison.EfCore.Persistence;
 using ApiComparison.GraphQLApi.Subscriptions;
 using ApiComparison.Validation.Extensions;
@@ -75,16 +76,35 @@ public class Mutation
     }
 
     [UseDbContext(typeof(ApiComparisonDbContext))]
-    public async Task<User> AddUserAsync(User user,
+    public async Task<User> AddUserAsync(UserCreateRequestDto requestDto,
         [ScopedService] ApiComparisonDbContext context,
         [ScopedService] IValidator<User> validator,
         [Service] ITopicEventSender eventSender,
         CancellationToken cancellationToken)
     {
-        validator.ValidateAndThrowAggregateException(user);
-        var dbUser = await context.AddAsync(user, cancellationToken);
+        var userEntity =  new User
+            {
+                FirstName = requestDto.FirstName,
+                LastName = requestDto.LastName,
+                Bio = requestDto.Bio,
+                Account = new Account
+                {
+                    Email = requestDto.Email,
+                    Password = requestDto.Password,
+                    Username = requestDto.Username
+                },
+                Address = new Address
+                {
+                    City = requestDto.City,
+                    Street = requestDto.Street,
+                    StreetNumber = requestDto.StreetNumber,
+                }
+            };
 
-        await eventSender.SendAsync(nameof(Subscription.OnUserAdded), user, cancellationToken);
+        validator.ValidateAndThrowAggregateException(userEntity);
+        var dbUser = await context.AddAsync(userEntity, cancellationToken);
+
+        await eventSender.SendAsync(nameof(Subscription.OnUserAdded), requestDto, cancellationToken);
 
         return dbUser.Entity;
     }
